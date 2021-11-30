@@ -53,8 +53,9 @@ public class TurnHandler : MonoBehaviour
         {
             foreach (GameObject ally in allies)
             {
-                //ally.GetComponent<MonsterHandler>().removeFromScreen(); USE THIS INSTEAD WHEN READY TO HAVE MULTIPLE
-                ally.GetComponent<MonsterHandler>().die();
+                ally.GetComponent<MonsterHandler>().removeFromScreen();
+                //ally.GetComponent<MonsterHandler>().die();
+                ally.GetComponent<MonsterHandler>().reset();
             }
             SceneManager.LoadScene("Scenes/Victory", LoadSceneMode.Single);
         }

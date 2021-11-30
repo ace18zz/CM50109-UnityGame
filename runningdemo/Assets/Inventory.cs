@@ -13,16 +13,4 @@ public class Inventory : ScriptableObject
         new ItemHandler.Item("Werewolf Paw", Resources.Load<Sprite>("Werewolf Paw")),
         new ItemHandler.Item("Werewolf Paw", Resources.Load<Sprite>("Werewolf Paw"))
     };
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

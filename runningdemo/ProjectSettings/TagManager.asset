@@ -7,6 +7,7 @@ TagManager:
   - Monster
   - Enemy
   - Canvas
+  - UnpassableTerrain
   layers:
   - Default
   - TransparentFX

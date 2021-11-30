@@ -57,10 +57,53 @@ public class MonsterHandler : MonoBehaviour
         return isOccupied;
     }
 
+    static public bool isSpaceOccupiedByWall(Vector3 destination)
+    {
+        bool isOccupied = false;
+
+        foreach (GameObject wall in LevelHandler.walls)
+        {
+            List<Vector2> wallPos = new List<Vector2>();
+
+            int height = (int)wall.GetComponent<Renderer>().bounds.size.y;
+            int width = (int)wall.GetComponent<Renderer>().bounds.size.x;
+            
+            float halfheight = height / 2;
+            float halfwidth = width / 2;
+
+            if (width % 2 == 0)
+            {
+                halfwidth = halfwidth - 0.5f;
+            }
+
+            if (height % 2 == 0)
+            {
+                halfheight = halfheight - 0.5f;
+            }
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    
+                    Vector2 pos1 = new Vector2(wall.transform.position.x - halfwidth + i, wall.transform.position.y - halfheight + j);
+                    wallPos.Add(pos1);
+                }
+            }
+            
+            if (wallPos.Contains(destination))
+            {
+                isOccupied = true;
+            }
+        }
+
+        return isOccupied;
+    }
+
     //Move to the left one tile
     public void moveLeft()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.left))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.left) && !isSpaceOccupiedByWall(transform.position + Vector3.left))
         {
             transform.Translate(Vector3.left);
             currentMovement--;
@@ -70,7 +113,7 @@ public class MonsterHandler : MonoBehaviour
     //Move to the right one tile
     public void moveRight()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.right))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.right) && !isSpaceOccupiedByWall(transform.position + Vector3.right))
         {
             transform.Translate(Vector3.right);
             currentMovement--;
@@ -80,7 +123,7 @@ public class MonsterHandler : MonoBehaviour
     //Move up one tile
     public void moveUp()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.up))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.up) && !isSpaceOccupiedByWall(transform.position + Vector3.up))
         {
             transform.Translate(Vector3.up);
             currentMovement--;
@@ -90,7 +133,7 @@ public class MonsterHandler : MonoBehaviour
     //Move down one tile
     public void moveDown()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.down))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.down) && !isSpaceOccupiedByWall(transform.position + Vector3.down))
         {
             transform.Translate(Vector3.down);
             currentMovement--;
@@ -118,6 +161,12 @@ public class MonsterHandler : MonoBehaviour
         MonsterList.monsterList.Remove(this.gameObject);
         TurnHandler.allies.Remove(this.gameObject);
         Destroy(this.gameObject);
+    }
+
+    public void reset()
+    {
+        currentMovement = maxMovement;
+        currentActions = maxActions;
     }
 
     public void removeFromScreen()
