@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class EnemyHandler : MonoBehaviour
 {
@@ -117,7 +118,7 @@ public class EnemyHandler : MonoBehaviour
                     moveLeft();
                 }
             }
-            else if (Math.Abs(xDiff) <= Math.Abs(yDiff))
+            else if (Math.Abs(xDiff) < Math.Abs(yDiff))
             {
                 if (yDiff > 0)
                 {
@@ -126,6 +127,54 @@ public class EnemyHandler : MonoBehaviour
                 else if (yDiff < 0)
                 {
                     moveDown();
+                }
+            }
+            //If equidistant along x and y
+            else if (Math.Abs(xDiff) == Math.Abs(yDiff))
+            {
+                if (yDiff < 0 && xDiff < 0)
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left))
+                    {
+                        moveLeft();
+                    }
+                    else
+                    {
+                        moveDown();
+                    }
+                }
+                else if (yDiff > 0 && xDiff < 0)
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left))
+                    {
+                        moveLeft();
+                    }
+                    else
+                    {
+                        moveUp();
+                    }
+                }
+                else if (yDiff < 0 && xDiff > 0)
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right))
+                    {
+                        moveRight();
+                    }
+                    else
+                    {
+                        moveDown();
+                    }
+                }
+                else
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right))
+                    {
+                        moveRight();
+                    }
+                    else
+                    {
+                        moveUp();
+                    }
                 }
             }
             yield return new WaitForSeconds(0.33f);
@@ -166,9 +215,33 @@ public class EnemyHandler : MonoBehaviour
         }
     }
     
+    //Drops enemy loot
+    public void dropLoot()
+    {
+        int lootDrop = (int)Random.Range(0, 100);
+
+        if (lootDrop < 40)
+        { 
+            //do nothing
+        } 
+        else if (lootDrop < 75)
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Fur", Resources.Load<Sprite>("Werewolf Fur")));
+        }
+        else if (lootDrop < 95)
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Teeth", Resources.Load<Sprite>("Werewolf Teeth")));
+        }
+        else if (lootDrop < 100)
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Paw", Resources.Load<Sprite>("Werewolf Paw")));
+        }
+    }
+    
     //Removes the enemy from the game
     public void die()
     {
+        dropLoot();
         TurnHandler.enemies.Remove(this.gameObject);
         Destroy(this.gameObject);
     }

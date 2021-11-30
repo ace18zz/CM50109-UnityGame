@@ -115,9 +115,14 @@ public class MonsterHandler : MonoBehaviour
 
     public void die()
     {
-        ItemHandler.playerMonsters.Remove(this.gameObject);
+        MonsterList.monsterList.Remove(this.gameObject);
         TurnHandler.allies.Remove(this.gameObject);
         Destroy(this.gameObject);
+    }
+
+    public void removeFromScreen()
+    {
+        transform.position = new Vector2(100000,100000);
     }
 
     // Start is called before the first frame update

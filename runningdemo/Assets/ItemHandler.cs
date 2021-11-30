@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class ItemHandler : MonoBehaviour
 {
 	//Fake item class as we need it for this script
@@ -16,18 +17,8 @@ public class ItemHandler : MonoBehaviour
 			ItemSprite = sprite;
 		}
 	}
-	
+
 	//Fake inventory whilst we wait for you to make it
-	List<Item> Inventory = new List<Item>();
-	
-	void InventoryLoad(){
-		Inventory.Add(new Item("Werewolf Teeth", Resources.Load<Sprite>("Werewolf Teeth")));
-		Inventory.Add(new Item("Werewolf Teeth", Resources.Load<Sprite>("Werewolf Teeth")));
-		Inventory.Add(new Item("Werewolf Fur", Resources.Load<Sprite>("Werewolf Fur")));
-		Inventory.Add(new Item("Werewolf Fur", Resources.Load<Sprite>("Werewolf Fur")));
-		Inventory.Add(new Item("Werewolf Paw", Resources.Load<Sprite>("Werewolf Paw")));
-		Inventory.Add(new Item("Werewolf Paw", Resources.Load<Sprite>("Werewolf Paw")));
-	}
 	
 	public GameObject ItemSlot;
 	//load a texture from a map
@@ -91,8 +82,8 @@ public class ItemHandler : MonoBehaviour
 	}
 	
 	void fillInventory(){
-		for (int i = 0; i < Inventory.Count; i++){
-			Item currentItem = Inventory[i];
+		for (int i = 0; i < Inventory.playerInventory.Count; i++){
+			Item currentItem = Inventory.playerInventory[i];
 			GameObject currentSlot = emptySlotsList[i];
 			currentSlot.GetComponent<Image>().sprite = currentItem.ItemSprite;
 			currentSlot.GetComponent<ItemSlot>().heldItem = currentItem;
@@ -171,14 +162,15 @@ public class ItemHandler : MonoBehaviour
 					clone.GetComponent<MonsterHandler>().maxMovement += 1;
 					clone.GetComponent<MonsterHandler>().currentMovement += 1;
 				}
-				playerMonsters.Add(clone);
-
-				SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+				Inventory.playerInventory.Remove(slot.GetComponent<ItemSlot>().heldItem);
 			}
+
+			MonsterList.addMonster(clone);
+
+			SceneManager.LoadScene("Level1", LoadSceneMode.Single);
 		}
 	}
 	
-	public static List<GameObject> playerMonsters = new List<GameObject>();
 	public GameObject monsterPrefab;
 	
 	void instantiateCraftingSlots(){
@@ -196,7 +188,6 @@ public class ItemHandler : MonoBehaviour
     {
 		GameObject.Find("Craft Monster Button").GetComponentInChildren<Text>().text = "Create monster!";
 		instantiateCraftingSlots();
-		InventoryLoad();
 		generateCoordinates();
 		generateItemSlots();
 		fillInventory();

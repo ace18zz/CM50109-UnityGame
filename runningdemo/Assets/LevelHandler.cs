@@ -24,7 +24,7 @@ public class LevelHandler : MonoBehaviour
     Vector3 maxEnemyPosition = new Vector3(9, 5, 0);
     
     //Sets the number of Monsters to spawn
-    public int numMonstersToSpawn = ItemHandler.playerMonsters.Count;
+    public int numMonstersToSpawn = MonsterList.monsterList.Count;
     public List<Vector3> monsterCoords;
 
     //Sets the number of Enemies to spawn
@@ -70,7 +70,7 @@ public class LevelHandler : MonoBehaviour
     void Start()
     {  
         //Spawns monsters in unnocupied spaces in given area
-        foreach (GameObject currentMonster in ItemHandler.playerMonsters){
+        foreach (GameObject currentMonster in MonsterList.monsterList){
             if (currentMonster != null)
             {
                 spawnMonster(currentMonster);
