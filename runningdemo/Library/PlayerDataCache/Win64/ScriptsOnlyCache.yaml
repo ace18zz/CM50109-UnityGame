@@ -4,10 +4,12 @@ ScriptsOnlyBuild:
     - DefeatScreen
     - DontDestroy
     - EnemyHandler
+    - GameMenuHandler
     - ItemHandler
     - ItemSlot
     - LevelHandler
     - MonsterHandler
+    - MovementTiles
     - StartGame
     - TurnHandler
     - TurnTracker
@@ -16,8 +18,11 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
+    - UnityEditor.Tilemaps.GridPaletteBrushes
+    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
@@ -76,6 +81,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 3972}
     - Class: 114
       Script: {instanceID: 5138}
+    - Class: 114
+      Script: {instanceID: 25112}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -95,6 +102,55 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
     Assets/Scenes/Defeat.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 1458}
+    - Class: 114
+      Script: {instanceID: 2254}
+    - Class: 114
+      Script: {instanceID: 2680}
+    - Class: 114
+      Script: {instanceID: 2682}
+    - Class: 114
+      Script: {instanceID: 2854}
+    - Class: 114
+      Script: {instanceID: 3086}
+    - Class: 114
+      Script: {instanceID: 3336}
+    - Class: 114
+      Script: {instanceID: 3454}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/GameMenu.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -184,6 +240,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 5786}
     - Class: 114
       Script: {instanceID: 5824}
+    - Class: 114
+      Script: {instanceID: 25112}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -247,6 +305,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 4528}
     - Class: 114
       Script: {instanceID: 5138}
+    - Class: 114
+      Script: {instanceID: 23492}
+    - Class: 114
+      Script: {instanceID: 25112}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -653,7 +715,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: f4e044ffa628699e25d8ffc552c47c6f
+      Hash: d1c2731edff718ab3c2605e34d2bb15a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MonsterHandler
@@ -915,9 +977,22 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TurnTracker
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameMenuHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MovementTiles
   platform: 19
   scenePathNames:
   - Assets/Scenes/StartScreen.unity
+  - Assets/Scenes/GameMenu.unity
   - Assets/Scenes/CraftingUI.unity
   - Assets/Scenes/Levels/Level1.unity
   - Assets/Scenes/Defeat.unity

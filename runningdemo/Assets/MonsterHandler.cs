@@ -20,6 +20,9 @@ public class MonsterHandler : MonoBehaviour
     //Importing sprite renderer
     SpriteRenderer sprite;
 
+    //Possible movement sprite
+    public GameObject possibleMovement;
+
     //Sprite color
     public Color monsterColor;
 
@@ -156,6 +159,75 @@ public class MonsterHandler : MonoBehaviour
         }
     }
 
+    public bool isMoveable(Vector3 destination)
+    {
+        bool result = true;
+        if (isSpaceOccupiedByWall(destination) || isSpaceOccupiedByEnemy(destination) || isSpaceOccupiedByAlly(destination))
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    public void selectMonster()
+    {
+        isSelected = true;
+
+        List<Vector3> moveableTiles = new List<Vector3>();
+
+        Vector3 currentPosition = transform.position;
+        moveableTiles.Add(currentPosition);
+
+        for (int i = 0; i < currentMovement; i++)
+        {
+            List<Vector3> moveableTilesClone = new List<Vector3>(moveableTiles);
+
+            foreach(Vector3 position in moveableTilesClone)
+            {
+                if (isMoveable(position + Vector3.left) && !moveableTiles.Contains(position + Vector3.left))
+                {
+                    moveableTiles.Add(position + Vector3.left);
+                }
+                if (isMoveable(position + Vector3.right) && !moveableTiles.Contains(position + Vector3.right))
+                {
+                    moveableTiles.Add(position + Vector3.right);
+                }
+                if (isMoveable(position + Vector3.up) && !moveableTiles.Contains(position + Vector3.up))
+                {
+                    moveableTiles.Add(position + Vector3.up);
+                }
+                if (isMoveable(position + Vector3.down) && !moveableTiles.Contains(position + Vector3.down))
+                {
+                    moveableTiles.Add(position + Vector3.down);
+                }
+            }   
+
+        }
+
+        moveableTiles.Remove(currentPosition);
+
+        foreach (Vector3 tile in moveableTiles)
+        {
+            Debug.Log(tile);
+            Instantiate(possibleMovement, tile, Quaternion.identity);
+        }
+
+    }
+    public static List<GameObject> moveTiles;
+
+    public void deselectMonster()
+    {
+        isSelected = false;
+
+        moveTiles = new System.Collections.Generic.List<GameObject>();
+        moveTiles.AddRange(GameObject.FindGameObjectsWithTag("Movement"));
+
+        foreach (GameObject tile in moveTiles)
+        {
+            tile.GetComponent<MovementTiles>().die();
+        }
+    }
+
     public void die()
     {
         MonsterList.monsterList.Remove(this.gameObject);
@@ -188,7 +260,7 @@ public class MonsterHandler : MonoBehaviour
     void Update()
     {
         //Detects left click
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !GameMenuHandler.isInMenu)
         {
             //This gets the position of the cursor when the click was made
             Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -254,15 +326,15 @@ public class MonsterHandler : MonoBehaviour
                     //Sets all allies to be unselected
                     foreach (GameObject ally in TurnHandler.allies)
                     {
-                        ally.GetComponent<MonsterHandler>().isSelected = false;
+                        ally.GetComponent<MonsterHandler>().deselectMonster();
                     }
                     //Sets this unit to be selected
-                    isSelected = true;
+                    selectMonster();
                 }
             }
         }
         //When a unit runs out of movement it turns translucent
-        if (currentMovement == 0)
+        if (currentMovement == 0 && currentActions == 0)
         {
             sprite.color = new Color(1f, 1f, 1f, 0.2f);
         }

@@ -11,10 +11,6 @@ public class LevelHandler : MonoBehaviour
     //Gets the enemy prefab
     public GameObject enemy;
 
-    //Keeps list of living enemies
-    //public List<GameObject> livingEnemies;
-    //public List<GameObject> deadEnemies;
-
     //Sets the areas in which Monsters can spawn
     Vector3 minMonsterPosition = new Vector3(-9, -5, 0);
     Vector3 maxMonsterPosition = new Vector3(-1, 5, 0);

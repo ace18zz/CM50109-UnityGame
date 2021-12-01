@@ -388,8 +388,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: EndScreenHandler, Assembly-CSharp
+      - m_Target: {fileID: 1062248522}
+        m_TargetAssemblyTypeName: VictoryScreen, Assembly-CSharp
         m_MethodName: quit
         m_Mode: 1
         m_Arguments:

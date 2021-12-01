@@ -35,9 +35,13 @@ public class TurnHandler : MonoBehaviour
     void Update()
     {
         //If player presses enter on their, move onto enemy turn and add to turn counter
-        if (Input.GetKeyDown(KeyCode.Return) && isPlayerTurn)
+        if (Input.GetKeyDown(KeyCode.Return) && isPlayerTurn && !GameMenuHandler.isInMenu)
         {
             isPlayerTurn = false;
+            foreach (GameObject ally in allies)
+            {
+                ally.GetComponent<MonsterHandler>().deselectMonster();
+            }
         }
 
         //Carrying out enemy turns

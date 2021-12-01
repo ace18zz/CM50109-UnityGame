@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: d7296862c1ead45499e21f08d787c844
   - enabled: 1
+    path: Assets/Scenes/GameMenu.unity
+    guid: 65bb0169fcb957e4ca96d8041770a4f8
+  - enabled: 1
     path: Assets/Scenes/CraftingUI.unity
     guid: 1437f59307a82aa41bfdd9413626a153
   - enabled: 1

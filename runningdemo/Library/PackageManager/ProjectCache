@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637732894072219455
-    m_Hash: 1543898058
+      ticks: 637739173070775221
+    m_Hash: 3698904590
   m_LockFileStatus:
     m_FilePath: C:/Users/Matth/Documents/GitHub/CM50109-UnityGame/runningdemo/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637732894134332949
-    m_Hash: 2888801861
+      ticks: 637739173070784898
+    m_Hash: 3203948965
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
