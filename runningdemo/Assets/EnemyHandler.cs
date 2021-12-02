@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class EnemyHandler : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class EnemyHandler : MonoBehaviour
 
     public void moveLeft()
     {
-        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left) && !isSpaceOccupiedByAlly(transform.position + Vector3.left))
+        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left) && !isSpaceOccupiedByAlly(transform.position + Vector3.left) && !isSpaceOccupiedByWall(transform.position + Vector3.left))
         {
             transform.Translate(Vector3.left);
         }
@@ -30,7 +31,7 @@ public class EnemyHandler : MonoBehaviour
     //Move to the right one tile
     public void moveRight()
     {
-        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right) && !isSpaceOccupiedByAlly(transform.position + Vector3.right))
+        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right) && !isSpaceOccupiedByAlly(transform.position + Vector3.right) && !isSpaceOccupiedByWall(transform.position + Vector3.right))
         {
             transform.Translate(Vector3.right);
         }
@@ -39,7 +40,7 @@ public class EnemyHandler : MonoBehaviour
     //Move up one tile
     public void moveUp()
     {
-        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.up) && !isSpaceOccupiedByAlly(transform.position + Vector3.up))
+        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.up) && !isSpaceOccupiedByAlly(transform.position + Vector3.up) && !isSpaceOccupiedByWall(transform.position + Vector3.up))
         {
             transform.Translate(Vector3.up);
         }
@@ -48,7 +49,7 @@ public class EnemyHandler : MonoBehaviour
     //Move down one tile
     public void moveDown()
     {
-        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.down) && !isSpaceOccupiedByAlly(transform.position + Vector3.down))
+        if (!isSpaceOccupiedByEnemy(transform.position + Vector3.down) && !isSpaceOccupiedByAlly(transform.position + Vector3.down) && !isSpaceOccupiedByWall(transform.position + Vector3.down))
         {
             transform.Translate(Vector3.down);
         }
@@ -83,7 +84,50 @@ public class EnemyHandler : MonoBehaviour
 
         return isOccupied;
     }
-    
+
+    static public bool isSpaceOccupiedByWall(Vector3 destination)
+    {
+        bool isOccupied = false;
+
+        foreach (GameObject wall in LevelHandler.walls)
+        {
+            List<Vector2> wallPos = new List<Vector2>();
+
+            int height = (int)wall.GetComponent<Renderer>().bounds.size.y;
+            int width = (int)wall.GetComponent<Renderer>().bounds.size.x;
+
+            float halfheight = height / 2;
+            float halfwidth = width / 2;
+
+            if (width % 2 == 0)
+            {
+                halfwidth = halfwidth - 0.5f;
+            }
+
+            if (height % 2 == 0)
+            {
+                halfheight = halfheight - 0.5f;
+            }
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+
+                    Vector2 pos1 = new Vector2(wall.transform.position.x - halfwidth + i, wall.transform.position.y - halfheight + j);
+                    wallPos.Add(pos1);
+                }
+            }
+
+            if (wallPos.Contains(destination))
+            {
+                isOccupied = true;
+            }
+        }
+
+        return isOccupied;
+    }
+
     //Enemy makes a move towards monster
     public IEnumerator makeMove()
     {
@@ -105,7 +149,7 @@ public class EnemyHandler : MonoBehaviour
             int xDiff = (int)closestMonster.transform.position.x - (int)transform.position.x;
             int yDiff = (int)closestMonster.transform.position.y - (int)transform.position.y;
 
-            //Basically it checks if distancs is further on x or y axis then moves one tile on that axis towards the monster
+            //Basically it checks if distance is further on x or y axis then moves one tile on that axis towards the monster
             if (Math.Abs(xDiff) > Math.Abs(yDiff))
             {
                 if (xDiff > 0)
@@ -117,7 +161,7 @@ public class EnemyHandler : MonoBehaviour
                     moveLeft();
                 }
             }
-            else if (Math.Abs(xDiff) <= Math.Abs(yDiff))
+            else if (Math.Abs(xDiff) < Math.Abs(yDiff))
             {
                 if (yDiff > 0)
                 {
@@ -126,6 +170,54 @@ public class EnemyHandler : MonoBehaviour
                 else if (yDiff < 0)
                 {
                     moveDown();
+                }
+            }
+            //If equidistant along x and y
+            else if (Math.Abs(xDiff) == Math.Abs(yDiff))
+            {
+                if (yDiff < 0 && xDiff < 0)
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left))
+                    {
+                        moveLeft();
+                    }
+                    else
+                    {
+                        moveDown();
+                    }
+                }
+                else if (yDiff > 0 && xDiff < 0)
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left))
+                    {
+                        moveLeft();
+                    }
+                    else
+                    {
+                        moveUp();
+                    }
+                }
+                else if (yDiff < 0 && xDiff > 0)
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right))
+                    {
+                        moveRight();
+                    }
+                    else
+                    {
+                        moveDown();
+                    }
+                }
+                else
+                {
+                    if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right))
+                    {
+                        moveRight();
+                    }
+                    else
+                    {
+                        moveUp();
+                    }
                 }
             }
             yield return new WaitForSeconds(0.33f);
@@ -156,6 +248,7 @@ public class EnemyHandler : MonoBehaviour
             }
         }
 
+        //Checks if monster is in adjacent tile
         int xDiff = (int)closestMonster.transform.position.x - (int)transform.position.x;
         int yDiff = (int)closestMonster.transform.position.y - (int)transform.position.y;
 
@@ -166,9 +259,39 @@ public class EnemyHandler : MonoBehaviour
         }
     }
     
+    //Drops enemy loot
+    public void dropLoot()
+    {
+        int lootDrop = (int)Random.Range(0, 100);
+
+        /*Paw: 5%
+         *Tooth: 20%
+         * Fur: 35%
+         * None: 40%
+         */
+        
+        if (lootDrop < 40)
+        { 
+            //do nothing
+        } 
+        else if (lootDrop < 75)
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Fur", Resources.Load<Sprite>("Werewolf Fur")));
+        }
+        else if (lootDrop < 95)
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Teeth", Resources.Load<Sprite>("Werewolf Teeth")));
+        }
+        else if (lootDrop < 100)
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Paw", Resources.Load<Sprite>("Werewolf Paw")));
+        }
+    }
+    
     //Removes the enemy from the game
     public void die()
     {
+        dropLoot();
         TurnHandler.enemies.Remove(this.gameObject);
         Destroy(this.gameObject);
     }

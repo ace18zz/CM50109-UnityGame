@@ -7,6 +7,8 @@ TagManager:
   - Monster
   - Enemy
   - Canvas
+  - UnpassableTerrain
+  - Movement
   layers:
   - Default
   - TransparentFX
