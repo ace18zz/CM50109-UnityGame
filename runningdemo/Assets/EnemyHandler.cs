@@ -7,15 +7,25 @@ using Random = UnityEngine.Random;
 
 public class EnemyHandler : MonoBehaviour
 {
+    //Enemy type
+    public string enemyType;
+
     //Enemy's health and damage
     public int enemyHealth = 20;
     public int enemyDamage = 5;
 
     //Enemy's movement
     public int maxMovement = 3;
+    public int currentMovement = 3;
 
     //Enemy's actions
     public int maxActions = 1;
+
+    //Keeps track of whether enemy movement is slowed
+    public int slowStacks = 0;
+
+    //Is the enemy poisoned?
+    public bool isPoisoned = false;
 
     //Enemy color
     public Color enemyColor;
@@ -132,7 +142,13 @@ public class EnemyHandler : MonoBehaviour
     public IEnumerator makeMove()
     {
         TurnHandler.enemiesMoving = true;
-        for (int i = 0; i < maxMovement; i++)
+        currentMovement = currentMovement - slowStacks;
+        slowStacks = 0;
+        if (isPoisoned)
+        {
+            enemyHealth -= 5;
+        }
+        for (int i = 0; i < currentMovement; i++)
         {
             GameObject closestMonster = TurnHandler.allies[0];
 
@@ -228,9 +244,21 @@ public class EnemyHandler : MonoBehaviour
         {
             makeAttack();
         }
-        GameObject.Find("LevelHandler").GetComponent<TurnHandler>().playerTurn();
-        TurnHandler.enemiesMoving = false;
-        TurnHandler.isPlayerTurn = true;
+        
+        bool mostMoves = true;
+        foreach(GameObject enemy in TurnHandler.enemies)
+        {
+            if (enemy.GetComponent<EnemyHandler>().currentMovement > currentMovement){
+                mostMoves = false;
+            }
+        }
+        if (mostMoves)
+        {
+            TurnHandler.enemyTurnOver = true;
+            TurnHandler.enemiesMoving = false;
+            TurnHandler.isPlayerTurn = true;
+        }
+        
     }
 
     //Enemy makes an attack
@@ -254,8 +282,85 @@ public class EnemyHandler : MonoBehaviour
 
         if (xDiff == 0 && Math.Abs(yDiff) == 1 || Math.Abs(xDiff) == 1 && yDiff == 0)
         {
-            closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage;
-            GameObject.Find("Combat Log").GetComponent<Text>().text =  "An enemy hit your monster for " + enemyDamage + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+            //Type-dependent effects considered
+            if (enemyType != "kangaroo")
+            {
+                closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage;
+            }
+            //Spider
+            if(enemyType == "spider")
+            {
+                closestMonster.GetComponent<MonsterHandler>().slowStacks++;
+            }
+            //Slime
+            else if (enemyType == "slime")
+            {
+                closestMonster.GetComponent<MonsterHandler>().isPoisoned = true;
+                GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster was poisoned." + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+            }
+            //Kangaroo
+            else if (enemyType == "kangaroo")
+            {
+                closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage;
+                GameObject.Find("Combat Log").GetComponent<Text>().text = " An enemy hit your monster for " + enemyDamage + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - (enemyDamage + 5);
+                GameObject.Find("Combat Log").GetComponent<Text>().text = " An enemy hit your monster for " + (enemyDamage + 5) + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                StartCoroutine(knockBack(closestMonster,3));
+                GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster was knocked away." + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+            }
+            else if(enemyType == "dragon")
+            {
+                closestMonster.GetComponent<MonsterHandler>().monsterDamage = closestMonster.GetComponent<MonsterHandler>().monsterDamage - 4;
+                GameObject.Find("Combat Log").GetComponent<Text>().text = "The dragon siphoned some of your power!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                enemyDamage += 4;
+                
+            }
+            //Not kangaroo
+            if(enemyType != "kangaroo")
+            {
+                GameObject.Find("Combat Log").GetComponent<Text>().text = " An enemy hit your monster for " + enemyDamage + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+            }
+        }
+    }
+    
+    public IEnumerator knockBack(GameObject closestMonster,int power)
+    {
+        if (closestMonster.transform.position == transform.position + Vector3.left)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<MonsterHandler>().moveLeft();
+                closestMonster.GetComponent<MonsterHandler>().currentMovement ++;
+                yield return new WaitForSeconds(0.33f);
+            }
+            
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.right)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<MonsterHandler>().moveRight();
+                closestMonster.GetComponent<MonsterHandler>().currentMovement++;
+                yield return new WaitForSeconds(0.33f);
+            }
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.up)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<MonsterHandler>().moveUp();
+                closestMonster.GetComponent<MonsterHandler>().currentMovement++;
+                yield return new WaitForSeconds(0.33f);
+            }
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.down)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<MonsterHandler>().moveDown();
+                closestMonster.GetComponent<MonsterHandler>().currentMovement++;
+                yield return new WaitForSeconds(0.33f);
+            }
         }
     }
     
@@ -263,29 +368,86 @@ public class EnemyHandler : MonoBehaviour
     public void dropLoot()
     {
         int lootDrop = (int)Random.Range(0, 100);
-
-        /*Paw: 5%
-         *Tooth: 20%
-         * Fur: 35%
-         * None: 40%
-         */
         
-        if (lootDrop < 40)
-        { 
-            //do nothing
-        } 
-        else if (lootDrop < 75)
+        if (enemyType == "werewolf")
         {
-            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Fur", Resources.Load<Sprite>("Werewolf Fur")));
+            if (lootDrop < 39)
+            { 
+                //do nothing
+            } 
+            else if (lootDrop < 79)
+            {
+                Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Fur", Resources.Load<Sprite>("Werewolf Fur")));
+            }
+            else if (lootDrop < 94)
+            {
+                Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Teeth", Resources.Load<Sprite>("Werewolf Teeth")));
+            }
+            else if (lootDrop < 99)
+            {
+                //do nothing
+            }
+            else if (lootDrop < 100)
+            {
+                //do nothing
+            }
         }
-        else if (lootDrop < 95)
+        else if (enemyType == "spider")
         {
-            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Teeth", Resources.Load<Sprite>("Werewolf Teeth")));
+            if (lootDrop < 39)
+            {
+                //do nothing
+            }
+            else if (lootDrop < 79)
+            {
+                Inventory.playerInventory.Add(new ItemHandler.Item("Spider Legs", Resources.Load<Sprite>("Spider Legs")));
+            }
+            else if (lootDrop < 94)
+            {
+                //do nothing
+            }
+            else if (lootDrop < 99)
+            {
+                Inventory.playerInventory.Add(new ItemHandler.Item("Spider Mandibles", Resources.Load<Sprite>("Spider Mandibles")));
+            }
+            else if (lootDrop < 100)
+            {
+                Inventory.playerInventory.Add(new ItemHandler.Item("Spider Web Sac", Resources.Load<Sprite>("Spider Web Sac")));
+            }
         }
-        else if (lootDrop < 100)
+        else if (enemyType == "slime")
         {
-            Inventory.playerInventory.Add(new ItemHandler.Item("Werewolf Paw", Resources.Load<Sprite>("Werewolf Paw")));
+            if (lootDrop < 39)
+            {
+                //do nothing
+            }
+            else if (lootDrop < 79)
+            {
+                //do nothing
+            }
+            else if (lootDrop < 94)
+            {
+                Inventory.playerInventory.Add(new ItemHandler.Item("Slimey Slime", Resources.Load<Sprite>("Slimey Slime")));
+            }
+            else if (lootDrop < 99)
+            {
+                //do nothing
+            }
+            else if (lootDrop < 100)
+            {
+                Inventory.playerInventory.Add(new ItemHandler.Item("Toxic Slime", Resources.Load<Sprite>("Toxic Slime")));
+            }
         }
+        else if (enemyType == "kangaroo")
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Boxing Gloves", Resources.Load<Sprite>("Boxing Gloves")));
+        }
+        else if (enemyType == "dragon")
+        {
+            Inventory.playerInventory.Add(new ItemHandler.Item("Dragon Head", Resources.Load<Sprite>("Dragon Head")));
+        }
+
+
     }
     
     //Removes the enemy from the game

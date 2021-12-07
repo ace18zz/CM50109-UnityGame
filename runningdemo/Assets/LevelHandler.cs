@@ -6,10 +6,16 @@ public class LevelHandler : MonoBehaviour
 {
     //Gets the monster prefab
     public GameObject monster;
-    //Gets fastmonster prefab
-    public GameObject fastmonster;
-    //Gets the enemy prefab
-    public GameObject enemy;
+    //Gets spider prefab
+    public GameObject spider;
+    //Gets the werewolf prefab
+    public GameObject werewolf;
+    //Gets the slime prefab
+    public GameObject slime;
+    //Gets the kangaroo prefab
+    public GameObject kangaroo;
+    //Gets the dragon prefab
+    public GameObject dragon;
 
     //Sets the areas in which Monsters can spawn
     Vector3 minMonsterPosition = new Vector3(-9, -5, 0);
@@ -24,7 +30,11 @@ public class LevelHandler : MonoBehaviour
     public List<Vector3> monsterCoords;
 
     //Sets the number of Enemies to spawn
-    public int numEnemiesToSpawn = 3;
+    public int numWerewolf;
+    public int numSpider;
+    public int numSlime;
+    public int numKangaroo;
+    public int numDragon;
     public List<Vector3> enemyCoords;
 
     //Keeps track of walls
@@ -49,26 +59,28 @@ public class LevelHandler : MonoBehaviour
     }
 
     //Spawns in an enemy at random coords within enemy area 
-    public void spawnEnemy()
+    public void spawnEnemy(GameObject enemyType)
     {
         int enemyX = (int)Random.Range(minEnemyPosition.x, maxEnemyPosition.x);
         int enemyY = (int)Random.Range(minEnemyPosition.y, maxEnemyPosition.y);
         Vector3 enemyVector = new Vector3(enemyX, enemyY, 0);
         if (!enemyCoords.Contains(enemyVector) && !monsterCoords.Contains(enemyVector) && !wallCoords.Contains(enemyVector))
         {
-            GameObject enemyInstance = Instantiate(enemy, enemyVector, Quaternion.identity);
+            GameObject enemyInstance = Instantiate(enemyType, enemyVector, Quaternion.identity);
             //livingEnemies.Add(enemyInstance);
             enemyCoords.Add(enemyVector);
         }
         else
         {
-            spawnEnemy();
+            spawnEnemy(enemyType);
         }
     }
     
     // Start is called before the first frame update
     void Start()
     {
+        //checks level then changes numEnemy values
+        
         //Gets wall locations
         walls = new System.Collections.Generic.List<GameObject>();
         walls.AddRange(GameObject.FindGameObjectsWithTag("UnpassableTerrain"));
@@ -110,10 +122,27 @@ public class LevelHandler : MonoBehaviour
 		}
 
         //Spawns enemies in unnocupied spaces in given area
-        for (int i = 0; i < numEnemiesToSpawn; i++)
+        for (int i = 0; i < numWerewolf; i++)
         {
-            spawnEnemy();
+            spawnEnemy(werewolf);
         }
+        for (int i = 0; i < numSpider; i++)
+        {
+            spawnEnemy(spider);
+        }
+        for (int i = 0; i < numSlime; i++)
+        {
+            spawnEnemy(slime);
+        }
+        for (int i = 0; i < numKangaroo; i++)
+        {
+            spawnEnemy(kangaroo);
+        }
+        for (int i = 0; i < numDragon; i++)
+        {
+            spawnEnemy(dragon);
+        }
+
     }
 
     // Update is called once per frame

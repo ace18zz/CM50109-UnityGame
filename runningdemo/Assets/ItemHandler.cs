@@ -161,10 +161,38 @@ public class ItemHandler : MonoBehaviour
 				{
 					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
 				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Werewolf Paw")
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Legs")
 				{
-					clone.GetComponent<MonsterHandler>().maxMovement += 1;
-					clone.GetComponent<MonsterHandler>().currentMovement += 1;
+					clone.GetComponent<MonsterHandler>().maxMovement ++;
+					clone.GetComponent<MonsterHandler>().currentMovement ++;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Mandibles")
+				{
+					clone.GetComponent<MonsterHandler>().maxActions ++;
+					clone.GetComponent<MonsterHandler>().currentActions++;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Web Sac")
+				{
+					clone.GetComponent<MonsterHandler>().spiderSpecial = true;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Slimey Slime")
+				{
+					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
+					clone.GetComponent<MonsterHandler>().monsterDamage += 5;
+					clone.GetComponent<MonsterHandler>().maxMovement--;
+					clone.GetComponent<MonsterHandler>().currentMovement--;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Toxic Slime")
+				{
+					clone.GetComponent<MonsterHandler>().slimeSpecial = true;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Boxing Gloves")
+				{
+					clone.GetComponent<MonsterHandler>().kangarooSpecial = true;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Dragon Head")
+				{
+					clone.GetComponent<MonsterHandler>().dragonSpecial = true;
 				}
 				Inventory.playerInventory.Remove(slot.GetComponent<ItemSlot>().heldItem);
 			}
@@ -173,7 +201,27 @@ public class ItemHandler : MonoBehaviour
 			craftingSlots.Clear();
 			selectedList.Clear();
 
-			SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+			if (PlayerLevel.playerLevel == 1)
+            {
+				SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+            }
+			else if (PlayerLevel.playerLevel == 3)
+            {
+				//load level 3
+            }
+			else if (PlayerLevel.playerLevel == 5)
+			{
+				//load level 3
+			}
+			else if (PlayerLevel.playerLevel == 7)
+			{
+				//load level 3
+			}
+			else if (PlayerLevel.playerLevel == 10)
+			{
+				//load level 3
+			}
+
 		}
 	}
 	

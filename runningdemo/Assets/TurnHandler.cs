@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TurnHandler : MonoBehaviour
 {
     //Keeps track of whether it's the players turn or not
     public static bool isPlayerTurn = true;
     public static bool enemiesMoving = false;
+    public static bool enemyTurnOver = false;
 
     //Get all enemies
     public static List<GameObject> enemies; 
@@ -17,8 +19,14 @@ public class TurnHandler : MonoBehaviour
     {
         foreach (GameObject ally in allies)
         {
-            ally.GetComponent<MonsterHandler>().currentMovement = ally.GetComponent<MonsterHandler>().maxMovement;
+            ally.GetComponent<MonsterHandler>().currentMovement = ally.GetComponent<MonsterHandler>().maxMovement - ally.GetComponent<MonsterHandler>().slowStacks;
+            ally.GetComponent<MonsterHandler>().slowStacks = 0;
             ally.GetComponent<MonsterHandler>().currentActions = ally.GetComponent<MonsterHandler>().maxActions;
+            if (ally.GetComponent<MonsterHandler>().isPoisoned)
+            {
+                ally.GetComponent<MonsterHandler>().monsterHealth = ally.GetComponent<MonsterHandler>().monsterHealth - 5;
+                GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster took 5 damage from poison! It now has " + ally.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+            }
         }
     }
     
@@ -67,6 +75,10 @@ public class TurnHandler : MonoBehaviour
         {
             SceneManager.LoadScene("Scenes/Defeat", LoadSceneMode.Single);
         }
-
+        if (enemyTurnOver)
+        {
+            playerTurn();
+            enemyTurnOver = false;
+        }
     }
 }

@@ -20,6 +20,7 @@ ScriptsOnlyBuild:
     - UnityEditor.U2D.IK.IKEditorManager
     - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.Tilemap.Editor.dll:
+    - UnityEditor.Tilemaps.GridBrush
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
@@ -62,27 +63,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1458}
     - Class: 114
-      Script: {instanceID: 2254}
+      Script: {instanceID: 1972}
     - Class: 114
-      Script: {instanceID: 2400}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2402}
     - Class: 114
-      Script: {instanceID: 2854}
+      Script: {instanceID: 2682}
     - Class: 114
-      Script: {instanceID: 3086}
+      Script: {instanceID: 2856}
     - Class: 114
-      Script: {instanceID: 3124}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3126}
     - Class: 114
-      Script: {instanceID: 3454}
+      Script: {instanceID: 3338}
     - Class: 114
-      Script: {instanceID: 3972}
+      Script: {instanceID: 3456}
     - Class: 114
-      Script: {instanceID: 5138}
+      Script: {instanceID: 3974}
     - Class: 114
-      Script: {instanceID: 25112}
+      Script: {instanceID: 4620}
+    - Class: 114
+      Script: {instanceID: 5142}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -121,19 +124,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1458}
     - Class: 114
-      Script: {instanceID: 2254}
-    - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2256}
     - Class: 114
       Script: {instanceID: 2682}
     - Class: 114
-      Script: {instanceID: 2854}
+      Script: {instanceID: 2684}
     - Class: 114
-      Script: {instanceID: 3086}
+      Script: {instanceID: 2856}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3454}
+      Script: {instanceID: 3338}
+    - Class: 114
+      Script: {instanceID: 3456}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -170,19 +173,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1458}
     - Class: 114
-      Script: {instanceID: 2254}
-    - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2256}
     - Class: 114
       Script: {instanceID: 2682}
     - Class: 114
-      Script: {instanceID: 2854}
+      Script: {instanceID: 2684}
     - Class: 114
-      Script: {instanceID: 3086}
+      Script: {instanceID: 2856}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3454}
+      Script: {instanceID: 3338}
+    - Class: 114
+      Script: {instanceID: 3456}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -217,31 +220,33 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 626}
+    - Class: 114
       Script: {instanceID: 1458}
     - Class: 114
       Script: {instanceID: 1972}
     - Class: 114
-      Script: {instanceID: 2254}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2682}
     - Class: 114
-      Script: {instanceID: 2854}
+      Script: {instanceID: 2856}
     - Class: 114
-      Script: {instanceID: 3086}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3124}
+      Script: {instanceID: 3126}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3338}
     - Class: 114
-      Script: {instanceID: 3972}
+      Script: {instanceID: 3974}
     - Class: 114
-      Script: {instanceID: 5092}
+      Script: {instanceID: 4620}
     - Class: 114
-      Script: {instanceID: 5786}
+      Script: {instanceID: 5096}
     - Class: 114
-      Script: {instanceID: 5824}
+      Script: {instanceID: 5790}
     - Class: 114
-      Script: {instanceID: 25112}
+      Script: {instanceID: 5828}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -286,29 +291,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1458}
     - Class: 114
-      Script: {instanceID: 1972}
-    - Class: 114
       Script: {instanceID: 2254}
     - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2854}
+      Script: {instanceID: 2682}
     - Class: 114
-      Script: {instanceID: 3086}
+      Script: {instanceID: 2856}
     - Class: 114
-      Script: {instanceID: 3124}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3126}
     - Class: 114
-      Script: {instanceID: 3972}
+      Script: {instanceID: 3338}
     - Class: 114
-      Script: {instanceID: 4528}
+      Script: {instanceID: 3456}
     - Class: 114
-      Script: {instanceID: 5138}
-    - Class: 114
-      Script: {instanceID: 23492}
-    - Class: 114
-      Script: {instanceID: 25112}
+      Script: {instanceID: 4530}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -316,8 +315,6 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
-      Script: {instanceID: 0}
-    - Class: 212
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -347,19 +344,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1458}
     - Class: 114
-      Script: {instanceID: 2254}
+      Script: {instanceID: 2256}
     - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2682}
     - Class: 114
-      Script: {instanceID: 2854}
+      Script: {instanceID: 2856}
     - Class: 114
-      Script: {instanceID: 3086}
+      Script: {instanceID: 3088}
     - Class: 114
-      Script: {instanceID: 3336}
+      Script: {instanceID: 3338}
     - Class: 114
-      Script: {instanceID: 3454}
+      Script: {instanceID: 3456}
     - Class: 114
-      Script: {instanceID: 5126}
+      Script: {instanceID: 5130}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -485,6 +482,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_StyleSheet
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameMenuHandler
   - hash:
       serializedVersion: 2
       Hash: 699619b86d9359741a4f58540298c80b
@@ -823,6 +826,12 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MovementTiles
+  - hash:
+      serializedVersion: 2
       Hash: b424b4eeb810aecb0ff91c62639241e9
     assemblyName: Unity.2D.Animation.Runtime.dll
     namespaceName: UnityEngine.Experimental.U2D.Animation
@@ -979,22 +988,41 @@ ScriptsOnlyBuild:
     className: TurnTracker
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 3faa100fa1501fc18c3d7bbd33374379
     assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GameMenuHandler
+    namespaceName: Cainos.PixelArtTopDown_Basic
+    className: SpriteColorAnimation
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: afc5b93a7b192de2dcb3832fe35a5c7e
     assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MovementTiles
+    namespaceName: Cainos.PixelArtTopDown_Basic
+    className: TopDownCharacterController
+  - hash:
+      serializedVersion: 2
+      Hash: f521aa63d9ffd972f8971012483a12ff
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Cainos.PixelArtTopDown_Basic
+    className: LayerTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 5fc6554497fb03f1b68aede7699939dc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Cainos.PixelArtTopDown_Basic
+    className: CameraFollow
+  - hash:
+      serializedVersion: 2
+      Hash: 4811501554c1bec6ae7daf21dc3fe0b0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Cainos.PixelArtTopDown_Basic
+    className: PropsAltar
   platform: 19
   scenePathNames:
-  - Assets/Scenes/StartScreen.unity
-  - Assets/Scenes/GameMenu.unity
   - Assets/Scenes/CraftingUI.unity
-  - Assets/Scenes/Levels/Level1.unity
   - Assets/Scenes/Defeat.unity
+  - Assets/Scenes/GameMenu.unity
+  - Assets/Scenes/StartScreen.unity
   - Assets/Scenes/Victory.unity
-  playerPath: G:/UnityProjects/runningdemo/My project (6).exe
+  - Assets/Scenes/Levels/Level1.unity
+  playerPath: C:/Users/Matth/Documents/GitHub/CM50109-UnityGame/runningdemo/My project
+    (6).exe
