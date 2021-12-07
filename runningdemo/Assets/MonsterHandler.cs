@@ -20,11 +20,32 @@ public class MonsterHandler : MonoBehaviour
     //Importing sprite renderer
     SpriteRenderer sprite;
 
+    //Possible movement sprite
+    public GameObject possibleMovement;
+
     //Sprite color
     public Color monsterColor;
 
     //Keeps track of whether this unit has been selected for movement
     public bool isSelected = false;
+
+    //Keeps track of whether unit is slowed
+    public int slowStacks = 0;
+
+    //Does this monster have spider special ability?
+    public bool spiderSpecial = false;
+
+    //Does this monster have slime special ability?
+    public bool slimeSpecial = false;
+
+    //Does this monster have kangaroo special ability?
+    public bool kangarooSpecial = false;
+
+    //Does this monster have dragon special ability?
+    public bool dragonSpecial = false;
+
+    //Keeps track of whether unit is poisoned
+    public bool isPoisoned = false;
 
     //This function checks whether a destination space has an ally or enemy in it
     public bool isSpaceOccupiedByAlly(Vector3 destination)
@@ -57,10 +78,53 @@ public class MonsterHandler : MonoBehaviour
         return isOccupied;
     }
 
+    static public bool isSpaceOccupiedByWall(Vector3 destination)
+    {
+        bool isOccupied = false;
+
+        foreach (GameObject wall in LevelHandler.walls)
+        {
+            List<Vector2> wallPos = new List<Vector2>();
+
+            int height = (int)wall.GetComponent<Renderer>().bounds.size.y;
+            int width = (int)wall.GetComponent<Renderer>().bounds.size.x;
+            
+            float halfheight = height / 2;
+            float halfwidth = width / 2;
+
+            if (width % 2 == 0)
+            {
+                halfwidth = halfwidth - 0.5f;
+            }
+
+            if (height % 2 == 0)
+            {
+                halfheight = halfheight - 0.5f;
+            }
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    
+                    Vector2 pos1 = new Vector2(wall.transform.position.x - halfwidth + i, wall.transform.position.y - halfheight + j);
+                    wallPos.Add(pos1);
+                }
+            }
+            
+            if (wallPos.Contains(destination))
+            {
+                isOccupied = true;
+            }
+        }
+
+        return isOccupied;
+    }
+
     //Move to the left one tile
     public void moveLeft()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.left))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.left) && !isSpaceOccupiedByWall(transform.position + Vector3.left))
         {
             transform.Translate(Vector3.left);
             currentMovement--;
@@ -70,7 +134,7 @@ public class MonsterHandler : MonoBehaviour
     //Move to the right one tile
     public void moveRight()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.right))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.right) && !isSpaceOccupiedByWall(transform.position + Vector3.right))
         {
             transform.Translate(Vector3.right);
             currentMovement--;
@@ -80,7 +144,7 @@ public class MonsterHandler : MonoBehaviour
     //Move up one tile
     public void moveUp()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.up))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.up) && !isSpaceOccupiedByWall(transform.position + Vector3.up))
         {
             transform.Translate(Vector3.up);
             currentMovement--;
@@ -90,7 +154,7 @@ public class MonsterHandler : MonoBehaviour
     //Move down one tile
     public void moveDown()
     {
-        if (!isSpaceOccupiedByAlly(transform.position + Vector3.down))
+        if (!isSpaceOccupiedByAlly(transform.position + Vector3.down) && !isSpaceOccupiedByWall(transform.position + Vector3.down))
         {
             transform.Translate(Vector3.down);
             currentMovement--;
@@ -106,10 +170,136 @@ public class MonsterHandler : MonoBehaviour
                 if (enemy.transform.position == target)
                 {
                     enemy.GetComponent<EnemyHandler>().enemyHealth = enemy.GetComponent<EnemyHandler>().enemyHealth - monsterDamage;
+                    if (spiderSpecial)
+                    {
+                        enemy.GetComponent<EnemyHandler>().slowStacks += 2;
+                    }
+                    if (slimeSpecial)
+                    {
+                        enemy.GetComponent<EnemyHandler>().isPoisoned = true;
+                    }
+                    if (kangarooSpecial)
+                    {
+                        StartCoroutine(knockBack(enemy, 3));
+                    }
+                    if (dragonSpecial)
+                    {
+                        enemy.GetComponent<EnemyHandler>().enemyDamage -= 4;
+                    }
                     GameObject.Find("Combat Log").GetComponent<Text>().text = "You hit an enemy for " + monsterDamage + " damage! It now has " + enemy.GetComponent<EnemyHandler>().enemyHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                    currentActions--;
+                    if (dragonSpecial)
+                    {
+                        GameObject.Find("Combat Log").GetComponent<Text>().text = "You weakened an enemy!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                    }
                 }
             }
-            currentActions--;
+            
+        }
+    }
+
+    public IEnumerator knockBack(GameObject closestMonster, int power)
+    {
+        if (closestMonster.transform.position == transform.position + Vector3.left)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveLeft();
+                yield return new WaitForSeconds(0.33f);
+            }
+
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.right)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveRight();
+                yield return new WaitForSeconds(0.33f);
+            }
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.up)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveUp();
+                yield return new WaitForSeconds(0.33f);
+            }
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.down)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveDown();
+                yield return new WaitForSeconds(0.33f);
+            }
+        }
+    }
+
+    public bool isMoveable(Vector3 destination)
+    {
+        bool result = true;
+        if (isSpaceOccupiedByWall(destination) || isSpaceOccupiedByEnemy(destination) || isSpaceOccupiedByAlly(destination))
+        {
+            result = false;
+        }
+        return result;
+    }
+
+    public void selectMonster()
+    {
+        isSelected = true;
+
+        List<Vector3> moveableTiles = new List<Vector3>();
+
+        Vector3 currentPosition = transform.position;
+        moveableTiles.Add(currentPosition);
+
+        for (int i = 0; i < currentMovement; i++)
+        {
+            List<Vector3> moveableTilesClone = new List<Vector3>(moveableTiles);
+
+            foreach(Vector3 position in moveableTilesClone)
+            {
+                if (isMoveable(position + Vector3.left) && !moveableTiles.Contains(position + Vector3.left))
+                {
+                    moveableTiles.Add(position + Vector3.left);
+                }
+                if (isMoveable(position + Vector3.right) && !moveableTiles.Contains(position + Vector3.right))
+                {
+                    moveableTiles.Add(position + Vector3.right);
+                }
+                if (isMoveable(position + Vector3.up) && !moveableTiles.Contains(position + Vector3.up))
+                {
+                    moveableTiles.Add(position + Vector3.up);
+                }
+                if (isMoveable(position + Vector3.down) && !moveableTiles.Contains(position + Vector3.down))
+                {
+                    moveableTiles.Add(position + Vector3.down);
+                }
+            }   
+
+        }
+
+        moveableTiles.Remove(currentPosition);
+
+        foreach (Vector3 tile in moveableTiles)
+        {
+            Instantiate(possibleMovement, tile, Quaternion.identity);
+        }
+
+    }
+    public static List<GameObject> moveTiles;
+
+    public void deselectMonster()
+    {
+        isSelected = false;
+
+        moveTiles = new System.Collections.Generic.List<GameObject>();
+        moveTiles.AddRange(GameObject.FindGameObjectsWithTag("Movement"));
+
+        foreach (GameObject tile in moveTiles)
+        {
+            tile.GetComponent<MovementTiles>().die();
         }
     }
 
@@ -118,6 +308,12 @@ public class MonsterHandler : MonoBehaviour
         MonsterList.monsterList.Remove(this.gameObject);
         TurnHandler.allies.Remove(this.gameObject);
         Destroy(this.gameObject);
+    }
+
+    public void reset()
+    {
+        currentMovement = maxMovement;
+        currentActions = maxActions;
     }
 
     public void removeFromScreen()
@@ -139,7 +335,7 @@ public class MonsterHandler : MonoBehaviour
     void Update()
     {
         //Detects left click
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !GameMenuHandler.isInMenu)
         {
             //This gets the position of the cursor when the click was made
             Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -205,15 +401,15 @@ public class MonsterHandler : MonoBehaviour
                     //Sets all allies to be unselected
                     foreach (GameObject ally in TurnHandler.allies)
                     {
-                        ally.GetComponent<MonsterHandler>().isSelected = false;
+                        ally.GetComponent<MonsterHandler>().deselectMonster();
                     }
                     //Sets this unit to be selected
-                    isSelected = true;
+                    selectMonster();
                 }
             }
         }
         //When a unit runs out of movement it turns translucent
-        if (currentMovement == 0)
+        if ((currentMovement == 0 && currentActions == 0)|| !TurnHandler.isPlayerTurn)
         {
             sprite.color = new Color(1f, 1f, 1f, 0.2f);
         }

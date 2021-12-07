@@ -3,6 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   tags:
   - Monster
@@ -11,6 +12,9 @@ TagManager:
 =======
   tags: []
 >>>>>>> Stashed changes
+=======
+  tags: []
+>>>>>>> origin/Fei
   layers:
   - Default
   - TransparentFX

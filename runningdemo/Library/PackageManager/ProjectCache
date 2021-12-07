@@ -5,24 +5,34 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       ticks: 637732894072219455
 =======
       ticks: 637740539540000000
 >>>>>>> Stashed changes
     m_Hash: 1543898058
+=======
+      ticks: 637739173070775221
+    m_Hash: 3698904590
+>>>>>>> origin/Fei
   m_LockFileStatus:
     m_FilePath: /Users/fei/Documents/GitHub/CM50109-UnityGame/runningdemo/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       ticks: 637732894134332949
 =======
       ticks: 637740539540000000
 >>>>>>> Stashed changes
     m_Hash: 2888801861
+=======
+      ticks: 637739173070784898
+    m_Hash: 3203948965
+>>>>>>> origin/Fei
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
