@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1045 &1
@@ -21,3 +22,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Victory.unity
     guid: dcb7ab1f82f83a946859c7440647dc60
   m_configObjects: {}
+=======
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes: []
+  m_configObjects: {}
+>>>>>>> Stashed changes

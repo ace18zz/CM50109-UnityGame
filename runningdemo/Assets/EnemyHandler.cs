@@ -7,9 +7,15 @@ using Random = UnityEngine.Random;
 
 public class EnemyHandler : MonoBehaviour
 {
-    //Enemy's health and damage
+    //Enemy's health
     public int enemyHealth = 20;
-    public int enemyDamage = 5;
+
+    //Enemy's damage
+    public int enemyDamage()
+    {
+        int damage = (int)Random.Range(0, 5);
+        return damage;
+    }
 
     //Enemy's movement
     public int maxMovement = 3;
@@ -210,8 +216,8 @@ public class EnemyHandler : MonoBehaviour
 
         if (xDiff == 0 && Math.Abs(yDiff) == 1 || Math.Abs(xDiff) == 1 && yDiff == 0)
         {
-            closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage;
-            GameObject.Find("Combat Log").GetComponent<Text>().text =  "An enemy hit your monster for " + enemyDamage + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+            closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage();
+            GameObject.Find("Combat Log").GetComponent<Text>().text =  "An enemy hit your monster for " + enemyDamage() + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
         }
     }
     
