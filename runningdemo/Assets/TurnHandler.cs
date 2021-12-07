@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TurnHandler : MonoBehaviour
 {
     //Keeps track of whether it's the players turn or not
     public static bool isPlayerTurn = true;
     public static bool enemiesMoving = false;
+    public static bool enemyTurnOver = false;
 
     //Get all enemies
     public static List<GameObject> enemies; 
@@ -17,8 +19,14 @@ public class TurnHandler : MonoBehaviour
     {
         foreach (GameObject ally in allies)
         {
-            ally.GetComponent<MonsterHandler>().currentMovement = ally.GetComponent<MonsterHandler>().maxMovement;
+            ally.GetComponent<MonsterHandler>().currentMovement = ally.GetComponent<MonsterHandler>().maxMovement - ally.GetComponent<MonsterHandler>().slowStacks;
+            ally.GetComponent<MonsterHandler>().slowStacks = 0;
             ally.GetComponent<MonsterHandler>().currentActions = ally.GetComponent<MonsterHandler>().maxActions;
+            if (ally.GetComponent<MonsterHandler>().isPoisoned)
+            {
+                ally.GetComponent<MonsterHandler>().monsterHealth = ally.GetComponent<MonsterHandler>().monsterHealth - 5;
+                GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster took 5 damage from poison! It now has " + ally.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+            }
         }
     }
     
@@ -35,9 +43,13 @@ public class TurnHandler : MonoBehaviour
     void Update()
     {
         //If player presses enter on their, move onto enemy turn and add to turn counter
-        if (Input.GetKeyDown(KeyCode.Return) && isPlayerTurn)
+        if (Input.GetKeyDown(KeyCode.Return) && isPlayerTurn && !GameMenuHandler.isInMenu)
         {
             isPlayerTurn = false;
+            foreach (GameObject ally in allies)
+            {
+                ally.GetComponent<MonsterHandler>().deselectMonster();
+            }
         }
 
         //Carrying out enemy turns
@@ -53,8 +65,9 @@ public class TurnHandler : MonoBehaviour
         {
             foreach (GameObject ally in allies)
             {
-                //ally.GetComponent<MonsterHandler>().removeFromScreen(); USE THIS INSTEAD WHEN READY TO HAVE MULTIPLE
-                ally.GetComponent<MonsterHandler>().die();
+                ally.GetComponent<MonsterHandler>().removeFromScreen();
+                //ally.GetComponent<MonsterHandler>().die();
+                ally.GetComponent<MonsterHandler>().reset();
             }
             SceneManager.LoadScene("Scenes/Victory", LoadSceneMode.Single);
         }
@@ -62,6 +75,10 @@ public class TurnHandler : MonoBehaviour
         {
             SceneManager.LoadScene("Scenes/Defeat", LoadSceneMode.Single);
         }
-
+        if (enemyTurnOver)
+        {
+            playerTurn();
+            enemyTurnOver = false;
+        }
     }
 }

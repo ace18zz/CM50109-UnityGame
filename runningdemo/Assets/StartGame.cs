@@ -5,18 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void beginGame()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.anyKey)
-        {
-            SceneManager.LoadScene("Scenes/CraftingUI", LoadSceneMode.Single);
-        }
+        SceneManager.LoadScene("Scenes/CraftingUI", LoadSceneMode.Single);
     }
 }

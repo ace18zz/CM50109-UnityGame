@@ -102,6 +102,7 @@ MonoBehaviour:
   currentActions: 1
   monsterHealth: 40
   monsterDamage: 10
+  possibleMovement: {fileID: 6860233657136483016, guid: d3d7d33dca2903b45a0ed2b3c7abc036, type: 3}
   monsterColor: {r: 1, g: 1, b: 1, a: 1}
   isSelected: 0
   movementLeniency: 2.5

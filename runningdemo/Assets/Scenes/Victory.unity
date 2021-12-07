@@ -250,10 +250,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 2560, y: 1440}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -389,7 +389,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1062248522}
-        m_TargetAssemblyTypeName: EndScreenHandler, Assembly-CSharp
+        m_TargetAssemblyTypeName: VictoryScreen, Assembly-CSharp
         m_MethodName: quit
         m_Mode: 1
         m_Arguments:
@@ -676,7 +676,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1062248518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d97ee12cec902b48860e2117847bf4a, type: 3}
+  m_Script: {fileID: 11500000, guid: 986453644d00c7a40b366fa37c817a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1125999277
@@ -842,8 +842,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1062248522}
-        m_TargetAssemblyTypeName: EndScreenHandler, Assembly-CSharp
-        m_MethodName: retry
+        m_TargetAssemblyTypeName: VictoryScreen, Assembly-CSharp
+        m_MethodName: nextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

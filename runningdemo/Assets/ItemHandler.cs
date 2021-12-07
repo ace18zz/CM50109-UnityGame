@@ -97,7 +97,7 @@ public class ItemHandler : MonoBehaviour
 		    Vector3 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		    foreach (GameObject slot in emptySlotsList){
 			    if (worldposition.x < slot.transform.position.x + 0.5 && worldposition.x > slot.transform.position.x - 0.5 && worldposition.y < slot.transform.position.y + 0.5 && worldposition.y > slot.transform.position.y - 0.5){
-					if (!slot.GetComponent<ItemSlot>().isSelected && slot.GetComponent<ItemSlot>().heldItem.ItemName != "empty"){
+					if (!slot.GetComponent<ItemSlot>().isSelected && slot.GetComponent<ItemSlot>().heldItem.ItemName != "empty" && selectedList.Count < craftingSlots.Count){
 						selectedList.Add(slot);
 						slot.GetComponent<ItemSlot>().isSelected = true;
 						resetCrafting();
@@ -116,17 +116,17 @@ public class ItemHandler : MonoBehaviour
 					}
 	   }
 	}
-	
+
 	//list of items
 	//each time you click if it is not "empty" and less than 3:
 	//if selected remove
 	//if not selected add
 	//then if two items that are in our quick fix dictionary are there
 	//spit out a monster
-	
+
 	public List<GameObject> selectedList = new List<GameObject>();
 	
-	public List<GameObject> craftingSlots = new List<GameObject>();
+	public static List<GameObject> craftingSlots = new List<GameObject>();
 	
 	void fillCrafting(){
 		for (int i = 0; i < selectedList.Count; i++){
@@ -138,7 +138,11 @@ public class ItemHandler : MonoBehaviour
 	
 	void resetCrafting(){
 		foreach (GameObject slot in craftingSlots){
-			slot.GetComponent<Image>().sprite = null;
+			if (slot != null)
+            {
+				slot.GetComponent<Image>().sprite = null;
+            }
+			
 		}
 	}
 
@@ -157,17 +161,67 @@ public class ItemHandler : MonoBehaviour
 				{
 					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
 				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Werewolf Paw")
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Legs")
 				{
-					clone.GetComponent<MonsterHandler>().maxMovement += 1;
-					clone.GetComponent<MonsterHandler>().currentMovement += 1;
+					clone.GetComponent<MonsterHandler>().maxMovement ++;
+					clone.GetComponent<MonsterHandler>().currentMovement ++;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Mandibles")
+				{
+					clone.GetComponent<MonsterHandler>().maxActions ++;
+					clone.GetComponent<MonsterHandler>().currentActions++;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Web Sac")
+				{
+					clone.GetComponent<MonsterHandler>().spiderSpecial = true;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Slimey Slime")
+				{
+					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
+					clone.GetComponent<MonsterHandler>().monsterDamage += 5;
+					clone.GetComponent<MonsterHandler>().maxMovement--;
+					clone.GetComponent<MonsterHandler>().currentMovement--;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Toxic Slime")
+				{
+					clone.GetComponent<MonsterHandler>().slimeSpecial = true;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Boxing Gloves")
+				{
+					clone.GetComponent<MonsterHandler>().kangarooSpecial = true;
+				}
+				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Dragon Head")
+				{
+					clone.GetComponent<MonsterHandler>().dragonSpecial = true;
 				}
 				Inventory.playerInventory.Remove(slot.GetComponent<ItemSlot>().heldItem);
 			}
 
 			MonsterList.addMonster(clone);
+			craftingSlots.Clear();
+			selectedList.Clear();
 
-			SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+			if (PlayerLevel.playerLevel == 1)
+            {
+				SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+            }
+			else if (PlayerLevel.playerLevel == 3)
+            {
+				//load level 3
+            }
+			else if (PlayerLevel.playerLevel == 5)
+			{
+				//load level 3
+			}
+			else if (PlayerLevel.playerLevel == 7)
+			{
+				//load level 3
+			}
+			else if (PlayerLevel.playerLevel == 10)
+			{
+				//load level 3
+			}
+
 		}
 	}
 	
@@ -181,6 +235,30 @@ public class ItemHandler : MonoBehaviour
 		GameObject craftingSlot2 = Instantiate(ItemSlot, new Vector2(925 - 1280, 750 - 720), Quaternion.identity);
 		craftingSlot2.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
 		craftingSlots.Add(craftingSlot2);
+
+		GameObject craftingSlot3 = Instantiate(ItemSlot, new Vector2(325 - 1280, 350 - 720), Quaternion.identity);
+		craftingSlot3.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+
+		GameObject craftingSlot4 = Instantiate(ItemSlot, new Vector2(925 - 1280, 350 - 720), Quaternion.identity);
+		craftingSlot4.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+		
+		if (PlayerLevel.playerLevel >= 5)
+        {
+			craftingSlots.Add(craftingSlot3);
+        }
+        else
+        {
+			craftingSlot3.GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f, 1f);
+        }
+		
+		if (PlayerLevel.playerLevel >= 10)
+		{
+			craftingSlots.Add(craftingSlot4);
+		}
+        else
+        {
+			craftingSlot4.GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f, 1f);
+		}
 	}
 	
     // Start is called before the first frame update
