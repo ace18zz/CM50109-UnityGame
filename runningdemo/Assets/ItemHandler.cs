@@ -201,25 +201,41 @@ public class ItemHandler : MonoBehaviour
 			craftingSlots.Clear();
 			selectedList.Clear();
 
-			if (PlayerLevel.playerLevel == 1)
+			if (PlayerLevel.playerLevel == 0)
             {
-				SceneManager.LoadScene("Level1", LoadSceneMode.Single);
+				SceneManager.LoadScene("Scenes/Levels/Level0", LoadSceneMode.Single);
             }
 			else if (PlayerLevel.playerLevel == 3)
             {
-				//load level 3
-            }
-			else if (PlayerLevel.playerLevel == 5)
-			{
-				//load level 3
+				SceneManager.LoadScene("Scenes/Levels/Level3", LoadSceneMode.Single);
 			}
-			else if (PlayerLevel.playerLevel == 7)
+			else if (PlayerLevel.playerLevel == 6)
 			{
-				//load level 3
+				SceneManager.LoadScene("Scenes/Levels/Level6", LoadSceneMode.Single);
 			}
-			else if (PlayerLevel.playerLevel == 10)
+			else if (PlayerLevel.playerLevel == 9)
 			{
-				//load level 3
+				SceneManager.LoadScene("Scenes/Levels/Level9", LoadSceneMode.Single);
+			}
+			else if (PlayerLevel.playerLevel == 14)
+			{
+				SceneManager.LoadScene("Scenes/Levels/Level14", LoadSceneMode.Single);
+			}
+			else if (PlayerLevel.playerLevel == 16)
+			{
+				SceneManager.LoadScene("Scenes/Levels/Level16", LoadSceneMode.Single);
+			}
+			else if (PlayerLevel.playerLevel == 20)
+			{
+				SceneManager.LoadScene("Scenes/Levels/Level20", LoadSceneMode.Single);
+			}
+			else if (PlayerLevel.playerLevel == 23)
+			{
+				SceneManager.LoadScene("Scenes/Levels/Level23", LoadSceneMode.Single);
+			}
+			else if (PlayerLevel.playerLevel == 25)
+			{
+				SceneManager.LoadScene("Scenes/Levels/Level25", LoadSceneMode.Single);
 			}
 
 		}

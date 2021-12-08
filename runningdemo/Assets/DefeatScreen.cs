@@ -8,7 +8,7 @@ public class DefeatScreen : MonoBehaviour
 {
     public void retry()
     {
-        PlayerLevel.playerLevel = 1;
+        PlayerLevel.playerLevel = 0;
         SceneManager.LoadScene("Scenes/CraftingUI", LoadSceneMode.Single);
     }
 

@@ -18,15 +18,20 @@ public class LevelHandler : MonoBehaviour
     public GameObject dragon;
 
     //Sets the areas in which Monsters can spawn
-    Vector3 minMonsterPosition = new Vector3(-9, -5, 0);
-    Vector3 maxMonsterPosition = new Vector3(-1, 5, 0);
+    public Vector3 minMonsterPosition;
+    public Vector3 maxMonsterPosition;
 
     //Sets the areas in which Monsters can spawn
-    Vector3 minEnemyPosition = new Vector3(1, -5, 0);
-    Vector3 maxEnemyPosition = new Vector3(9, 5, 0);
-    
+    public Vector3 minEnemyPosition1;
+    public Vector3 maxEnemyPosition1;
+
+    public Vector3 minEnemyPosition2;
+    public Vector3 maxEnemyPosition2;
+
+    public Vector3 minEnemyPosition3;
+    public Vector3 maxEnemyPosition3;
+
     //Sets the number of Monsters to spawn
-    public int numMonstersToSpawn = MonsterList.monsterList.Count;
     public List<Vector3> monsterCoords;
 
     //Sets the number of Enemies to spawn
@@ -61,8 +66,28 @@ public class LevelHandler : MonoBehaviour
     //Spawns in an enemy at random coords within enemy area 
     public void spawnEnemy(GameObject enemyType)
     {
-        int enemyX = (int)Random.Range(minEnemyPosition.x, maxEnemyPosition.x);
-        int enemyY = (int)Random.Range(minEnemyPosition.y, maxEnemyPosition.y);
+        int enemyX;
+        int enemyY;
+
+        int spawnSeed = (int)Random.Range(1, 4);
+
+        if (spawnSeed == 1)
+        {
+            enemyX = (int)Random.Range(minEnemyPosition1.x, maxEnemyPosition1.x);
+            enemyY = (int)Random.Range(minEnemyPosition1.y, maxEnemyPosition1.y);
+        }
+        else if (spawnSeed == 2)
+        {
+            enemyX = (int)Random.Range(minEnemyPosition2.x, maxEnemyPosition2.x);
+            enemyY = (int)Random.Range(minEnemyPosition2.y, maxEnemyPosition2.y);
+        }
+        else
+        {
+            enemyX = (int)Random.Range(minEnemyPosition3.x, maxEnemyPosition3.x);
+            enemyY = (int)Random.Range(minEnemyPosition3.y, maxEnemyPosition3.y);
+        }
+
+
         Vector3 enemyVector = new Vector3(enemyX, enemyY, 0);
         if (!enemyCoords.Contains(enemyVector) && !monsterCoords.Contains(enemyVector) && !wallCoords.Contains(enemyVector))
         {
