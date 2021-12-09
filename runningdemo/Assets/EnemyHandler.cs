@@ -11,6 +11,7 @@ public class EnemyHandler : MonoBehaviour
     public string enemyType;
 
     //Enemy's health and damage
+    public int maxHealth = 20;
     public int enemyHealth = 20;
     public int enemyDamage = 5;
 
@@ -30,11 +31,44 @@ public class EnemyHandler : MonoBehaviour
     //Enemy color
     public Color enemyColor;
 
+    //Enemy's health bar
+    GameObject enemyHealthBar;
+    public GameObject healthBarPrefab;
+
+    public void createHealthUI()
+    {
+        GameObject healthUI = Instantiate(healthBarPrefab, transform.position + new Vector3(0f, 0.6f, 0f), Quaternion.identity);
+        healthUI.transform.SetParent(GameObject.Find("Canvas").transform);
+        healthUI.transform.localScale = new Vector3(0.8f, 0.1f, 0);
+        enemyHealthBar = healthUI;
+        updateHealthUI();
+    }
+
+    public void updateHealthUI()
+    {
+        enemyHealthBar.GetComponent<Image>().fillAmount = (float)enemyHealth / (float)maxHealth;
+        enemyHealthBar.transform.position = transform.position + new Vector3(0f, 0.6f, 0f);
+
+        if (enemyHealthBar.GetComponent<Image>().fillAmount <= 0.2f)
+        {
+            enemyHealthBar.GetComponent<Image>().color = Color.red;
+        }
+        else if (enemyHealthBar.GetComponent<Image>().fillAmount <= 0.5f)
+        {
+            enemyHealthBar.GetComponent<Image>().color = Color.yellow;
+        }
+        else
+        {
+            enemyHealthBar.GetComponent<Image>().color = Color.green;
+        }
+    }
+
     public void moveLeft()
     {
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left) && !isSpaceOccupiedByAlly(transform.position + Vector3.left) && !isSpaceOccupiedByWall(transform.position + Vector3.left))
         {
             transform.Translate(Vector3.left);
+            updateHealthUI();
         }
     }
 
@@ -44,6 +78,7 @@ public class EnemyHandler : MonoBehaviour
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right) && !isSpaceOccupiedByAlly(transform.position + Vector3.right) && !isSpaceOccupiedByWall(transform.position + Vector3.right))
         {
             transform.Translate(Vector3.right);
+            updateHealthUI();
         }
     }
 
@@ -53,6 +88,7 @@ public class EnemyHandler : MonoBehaviour
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.up) && !isSpaceOccupiedByAlly(transform.position + Vector3.up) && !isSpaceOccupiedByWall(transform.position + Vector3.up))
         {
             transform.Translate(Vector3.up);
+            updateHealthUI();
         }
     }
 
@@ -62,6 +98,7 @@ public class EnemyHandler : MonoBehaviour
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.down) && !isSpaceOccupiedByAlly(transform.position + Vector3.down) && !isSpaceOccupiedByWall(transform.position + Vector3.down))
         {
             transform.Translate(Vector3.down);
+            updateHealthUI();
         }
     }
 
@@ -147,6 +184,7 @@ public class EnemyHandler : MonoBehaviour
         if (isPoisoned)
         {
             enemyHealth -= 5;
+            updateHealthUI();
         }
         for (int i = 0; i < currentMovement; i++)
         {
@@ -286,6 +324,7 @@ public class EnemyHandler : MonoBehaviour
             if (enemyType != "kangaroo")
             {
                 closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage;
+                closestMonster.GetComponent<MonsterHandler>().updateHealthUI();
             }
             //Spider
             if(enemyType == "spider")
@@ -307,6 +346,7 @@ public class EnemyHandler : MonoBehaviour
                 GameObject.Find("Combat Log").GetComponent<Text>().text = " An enemy hit your monster for " + (enemyDamage + 5) + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
                 StartCoroutine(knockBack(closestMonster,3));
                 GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster was knocked away." + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                closestMonster.GetComponent<MonsterHandler>().updateHealthUI();
             }
             else if(enemyType == "dragon")
             {

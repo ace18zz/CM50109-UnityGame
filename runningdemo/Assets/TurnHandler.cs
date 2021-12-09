@@ -25,11 +25,12 @@ public class TurnHandler : MonoBehaviour
             if (ally.GetComponent<MonsterHandler>().isPoisoned)
             {
                 ally.GetComponent<MonsterHandler>().monsterHealth = ally.GetComponent<MonsterHandler>().monsterHealth - 5;
+                ally.GetComponent<MonsterHandler>().updateHealthUI();
                 GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster took 5 damage from poison! It now has " + ally.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
             }
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {

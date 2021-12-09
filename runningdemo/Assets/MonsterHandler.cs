@@ -48,6 +48,39 @@ public class MonsterHandler : MonoBehaviour
     //Keeps track of whether unit is poisoned
     public bool isPoisoned = false;
 
+    //Monster's health bar
+    GameObject monsterHealthBar;
+
+    public GameObject healthBarPrefab;
+
+    public void createHealthUI()
+    {
+        GameObject healthUI = Instantiate(healthBarPrefab, transform.position + new Vector3(0f, 0.6f, 0f), Quaternion.identity);
+        healthUI.transform.SetParent(GameObject.Find("Canvas").transform);
+        healthUI.transform.localScale = new Vector3(0.8f, 0.1f, 0);
+        monsterHealthBar = healthUI;
+        updateHealthUI();
+    }
+
+    public void updateHealthUI()
+    {
+        monsterHealthBar.GetComponent<Image>().fillAmount = (float)monsterHealth/(float)maxHealth;
+        monsterHealthBar.transform.position = transform.position + new Vector3(0f, 0.6f, 0f);
+
+        if (monsterHealthBar.GetComponent<Image>().fillAmount <= 0.2f)
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.red;
+        }
+        else if (monsterHealthBar.GetComponent<Image>().fillAmount <= 0.5f)
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.yellow;
+        }
+        else
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.green;
+        }
+    }
+
     //This function checks whether a destination space has an ally or enemy in it
     public bool isSpaceOccupiedByAlly(Vector3 destination)
     {
@@ -129,6 +162,7 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.left);
             currentMovement--;
+            updateHealthUI();
         }
     }
 
@@ -139,6 +173,7 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.right);
             currentMovement--;
+            updateHealthUI();
         } 
     }
 
@@ -149,6 +184,7 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.up);
             currentMovement--;
+            updateHealthUI();
         }
     }
 
@@ -159,6 +195,7 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.down);
             currentMovement--;
+            updateHealthUI();
         }
     }
 
@@ -193,6 +230,7 @@ public class MonsterHandler : MonoBehaviour
                     {
                         GameObject.Find("Combat Log").GetComponent<Text>().text = "You weakened an enemy!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
                     }
+                    enemy.GetComponent<EnemyHandler>().updateHealthUI();
                 }
             }
             
@@ -327,7 +365,6 @@ public class MonsterHandler : MonoBehaviour
     {
         //Getting the sprite renderer
         sprite = GetComponent<SpriteRenderer>();
-
     }
 
     //This allows for the player to slightly overclick a tile and still be able to move

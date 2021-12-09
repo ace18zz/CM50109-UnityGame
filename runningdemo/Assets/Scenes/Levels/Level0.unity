@@ -1628,6 +1628,7 @@ MonoBehaviour:
   numKangaroo: 0
   numDragon: 0
   enemyCoords: []
+  healthBar: {fileID: 0}
 --- !u!114 &1738406675
 MonoBehaviour:
   m_ObjectHideFlags: 0

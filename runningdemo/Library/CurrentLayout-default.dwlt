@@ -19,9 +19,9 @@ MonoBehaviour:
     width: 2560
     height: 1349.3334
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Game
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -46,7 +46,7 @@ MonoBehaviour:
     y: 0
     width: 2560
     height: 1349
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
@@ -400,9 +400,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ba070000
+      m_SelectedIDs: a44c0000
       m_LastClickedID: 0
-      m_ExpandedIDs: 48fbffff
+      m_ExpandedIDs: b235ffffba40ffff5a41ffffd441ffff6249ffff064bffff465fffffee9bffffe8a2ffff34a8ffff3cabffff32acffff18afffff98bdffffa6c0ffff40c1ffffc8c3ffff00c9ffff08ccffffc4cdffff04ceffffc8d0ffff74d8ffff90d9ffffd4dcffff3addffff62ddffffa0ddffff16e1ffff52e1ffff9ae1ffffcee1fffff2e1ffff18e2ffffaae8ffff14edffffcaf1ffff48fbfffff4ffffffe4590000586200003a65000066660000d2660000f86700000e69000062690000546a0000ee6a0000286d0000fa7000001c71000096710000bc720000d2730000f4730000187500003a750000087700002a770000a8850000ca8500006e8a0000ec8d0000a4920000a4940000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -463,9 +463,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.004983343, y: 1.3511997, z: -20.451132}
+    m_Target: {x: 0, y: 0, z: 90}
     speed: 2
-    m_Value: {x: -0.004983343, y: 1.3511997, z: -20.451132}
+    m_Value: {x: 0, y: 0, z: 90}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -516,9 +516,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 4.187339
+    m_Target: 11.169021
     speed: 2
-    m_Value: 4.187339
+    m_Value: 11.169021
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -608,22 +608,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/Resources/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Resources/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Matth\Documents\GitHub\CM50109-UnityGame\runningdemo
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b0430000
-    m_LastClickedID: 17328
-    m_ExpandedIDs: 00000000b043000000ca9a3b
+    m_SelectedIDs: c6430000
+    m_LastClickedID: 17350
+    m_ExpandedIDs: 00000000a2430000a6430000a843000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -651,7 +651,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b0430000
+    m_ExpandedIDs: 00000000a2430000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

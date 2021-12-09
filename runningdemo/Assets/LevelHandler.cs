@@ -56,6 +56,7 @@ public class LevelHandler : MonoBehaviour
         {
             monsterInstance.transform.position = monsterVector;
             monsterCoords.Add(monsterVector);
+            monsterInstance.GetComponent<MonsterHandler>().createHealthUI();
         }
         else
         {
@@ -94,13 +95,14 @@ public class LevelHandler : MonoBehaviour
             GameObject enemyInstance = Instantiate(enemyType, enemyVector, Quaternion.identity);
             //livingEnemies.Add(enemyInstance);
             enemyCoords.Add(enemyVector);
+            enemyInstance.GetComponent<EnemyHandler>().createHealthUI();
         }
         else
         {
             spawnEnemy(enemyType);
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -167,7 +169,6 @@ public class LevelHandler : MonoBehaviour
         {
             spawnEnemy(dragon);
         }
-
     }
 
     // Update is called once per frame

@@ -114,7 +114,8 @@ MonoBehaviour:
   kangarooSpecial: 0
   dragonSpecial: 0
   isPoisoned: 0
-  monsterHealthUI: {fileID: 6864040852677405513, guid: 042e5c720a62f594fbd0c6e7dab7f435,
+  monsterHealthBar: {fileID: 0}
+  healthBarPrefab: {fileID: 3886318745674466067, guid: 042e5c720a62f594fbd0c6e7dab7f435,
     type: 3}
   movementLeniency: 2.5
 --- !u!114 &8971565511859027811

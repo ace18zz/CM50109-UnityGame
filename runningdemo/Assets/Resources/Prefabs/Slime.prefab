@@ -89,6 +89,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8061884735862526221, guid: b2f1c3b27164ba646b89d1b8669c3d43,
         type: 3}
+      propertyPath: maxHealth
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8061884735862526221, guid: b2f1c3b27164ba646b89d1b8669c3d43,
+        type: 3}
       propertyPath: enemyDamage
       value: 40
       objectReference: {fileID: 0}
@@ -122,5 +127,11 @@ PrefabInstance:
       propertyPath: currentMovement
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8061884735862526221, guid: b2f1c3b27164ba646b89d1b8669c3d43,
+        type: 3}
+      propertyPath: healthBarPrefab
+      value: 
+      objectReference: {fileID: 3886318745674466067, guid: 042e5c720a62f594fbd0c6e7dab7f435,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2f1c3b27164ba646b89d1b8669c3d43, type: 3}
