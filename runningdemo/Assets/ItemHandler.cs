@@ -92,7 +92,7 @@ public class ItemHandler : MonoBehaviour
 	}
 	
 	void detectClicks(){
-		if (Input.GetMouseButtonDown(0)){
+		if (Input.GetMouseButtonDown(0) && InputEnabled.isInputEnabled){
 			Debug.Log(Input.mousePosition);
 		    Vector3 worldposition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		    foreach (GameObject slot in emptySlotsList){
@@ -159,6 +159,7 @@ public class ItemHandler : MonoBehaviour
 				}
 				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Werewolf Fur")
 				{
+					clone.GetComponent<MonsterHandler>().maxHealth += 10;
 					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
 				}
 				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Legs")
@@ -178,6 +179,7 @@ public class ItemHandler : MonoBehaviour
 				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Slimey Slime")
 				{
 					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
+					clone.GetComponent<MonsterHandler>().maxHealth += 10;
 					clone.GetComponent<MonsterHandler>().monsterDamage += 5;
 					clone.GetComponent<MonsterHandler>().maxMovement--;
 					clone.GetComponent<MonsterHandler>().currentMovement--;
@@ -281,6 +283,10 @@ public class ItemHandler : MonoBehaviour
     void Start()
     {
 		GameObject.Find("Craft Monster Button").GetComponentInChildren<Text>().text = "Create monster!";
+		if (PlayerLevel.playerLevel == 0)
+        {
+			GameObject.Find("EventSystem").GetComponent<TutorialHandler>().openTutorial();
+        }
 		instantiateCraftingSlots();
 		generateCoordinates();
 		generateItemSlots();

@@ -14,6 +14,7 @@ public class MonsterHandler : MonoBehaviour
     public int currentActions = 1;
 
     //Monster's health and damage
+    public int maxHealth = 40;
     public int monsterHealth = 40;
     public int monsterDamage = 10;
 
@@ -326,6 +327,7 @@ public class MonsterHandler : MonoBehaviour
     {
         //Getting the sprite renderer
         sprite = GetComponent<SpriteRenderer>();
+
     }
 
     //This allows for the player to slightly overclick a tile and still be able to move
@@ -335,7 +337,7 @@ public class MonsterHandler : MonoBehaviour
     void Update()
     {
         //Detects left click
-        if (Input.GetMouseButtonDown(0) && !GameMenuHandler.isInMenu)
+        if (Input.GetMouseButtonDown(0) && InputEnabled.isInputEnabled)
         {
             //This gets the position of the cursor when the click was made
             Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
