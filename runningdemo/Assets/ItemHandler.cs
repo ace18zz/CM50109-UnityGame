@@ -198,7 +198,7 @@ public class ItemHandler : MonoBehaviour
 				}
 				Inventory.playerInventory.Remove(slot.GetComponent<ItemSlot>().heldItem);
 			}
-
+			Inventory.playerInventory.Clear();
 			MonsterList.addMonster(clone);
 			craftingSlots.Clear();
 			selectedList.Clear();

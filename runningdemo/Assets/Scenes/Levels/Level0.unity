@@ -324,7 +324,7 @@ Transform:
   - {fileID: 1770221185}
   - {fileID: 1574248894}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &419625830
 GameObject:
@@ -420,6 +420,7 @@ RectTransform:
   - {fileID: 442550461}
   - {fileID: 1565590129}
   - {fileID: 1216534656}
+  - {fileID: 939208873}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -840,12 +841,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939208871}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.77, y: -7.28, z: 0}
-  m_LocalScale: {x: 1.6584, y: 0.29098368, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1023.75806, y: -583.63025, z: -7215.209}
+  m_LocalScale: {x: 132.95226, y: 23.327868, z: 80.16899}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 419625834}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &939208874
 MonoBehaviour:
@@ -1168,7 +1169,7 @@ Transform:
   m_Children:
   - {fileID: 1026634022}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1216534655
 GameObject:
@@ -1615,12 +1616,12 @@ MonoBehaviour:
   dragon: {fileID: 6549358685359724608, guid: e7f513747eb76de41b34bd12969f66d1, type: 3}
   minMonsterPosition: {x: 2, y: -2, z: 0}
   maxMonsterPosition: {x: 5, y: 2, z: 0}
-  minEnemyPosition1: {x: -4, y: -2, z: 0}
-  maxEnemyPosition1: {x: -4, y: -2, z: 0}
-  minEnemyPosition2: {x: -4, y: -2, z: 0}
-  maxEnemyPosition2: {x: -4, y: -2, z: 0}
-  minEnemyPosition3: {x: -4, y: -2, z: 0}
-  maxEnemyPosition3: {x: -4, y: -2, z: 0}
+  minEnemyPosition1: {x: -6, y: -2, z: 0}
+  maxEnemyPosition1: {x: -4, y: 2, z: 0}
+  minEnemyPosition2: {x: -6, y: -2, z: 0}
+  maxEnemyPosition2: {x: -4, y: 2, z: 0}
+  minEnemyPosition3: {x: -6, y: -2, z: 0}
+  maxEnemyPosition3: {x: -4, y: 2, z: 0}
   monsterCoords: []
   numWerewolf: 1
   numSpider: 0
@@ -1628,7 +1629,6 @@ MonoBehaviour:
   numKangaroo: 0
   numDragon: 0
   enemyCoords: []
-  healthBar: {fileID: 0}
 --- !u!114 &1738406675
 MonoBehaviour:
   m_ObjectHideFlags: 0

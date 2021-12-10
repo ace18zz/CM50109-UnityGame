@@ -49,7 +49,7 @@ public class MonsterHandler : MonoBehaviour
     public bool isPoisoned = false;
 
     //Monster's health bar
-    GameObject monsterHealthBar;
+    public GameObject monsterHealthBar;
 
     public GameObject healthBarPrefab;
 

@@ -40,6 +40,7 @@ public class LevelHandler : MonoBehaviour
     public int numSlime;
     public int numKangaroo;
     public int numDragon;
+
     public List<Vector3> enemyCoords;
 
     //Keeps track of walls
@@ -107,7 +108,18 @@ public class LevelHandler : MonoBehaviour
     void Start()
     {
         //checks level then changes numEnemy values
-        
+        int numWerewolfEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numWerewolf * 0.5f);
+        int numSpiderEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSpider * 0.5f);
+        int numSlimeEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSlime * 0.5f);
+        int numKangarooEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numKangaroo * 0.5f);
+        int numDragonEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numDragon * 0.5f);
+
+        int numWerewolfHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numWerewolf * 2f);
+        int numSpiderHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSpider * 2f);
+        int numSlimeHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSlime * 2f);
+        int numKangarooHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numKangaroo * 2f);
+        int numDragonHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numDragon * 2f);
+
         //Gets wall locations
         walls = new System.Collections.Generic.List<GameObject>();
         walls.AddRange(GameObject.FindGameObjectsWithTag("UnpassableTerrain"));
@@ -147,27 +159,76 @@ public class LevelHandler : MonoBehaviour
                 spawnMonster(currentMonster);
             }
 		}
-
+        
         //Spawns enemies in unnocupied spaces in given area
-        for (int i = 0; i < numWerewolf; i++)
+        if (Difficulty.difficulty == 0)
         {
-            spawnEnemy(werewolf);
+            for (int i = 0; i < numWerewolfEasy; i++)
+            {
+                spawnEnemy(werewolf);
+            }
+            for (int i = 0; i < numSpiderEasy; i++)
+            {
+                spawnEnemy(spider);
+            }
+            for (int i = 0; i < numSlimeEasy; i++)
+            {
+                spawnEnemy(slime);
+            }
+            for (int i = 0; i < numKangarooEasy; i++)
+            {
+                spawnEnemy(kangaroo);
+            }
+            for (int i = 0; i < numDragonEasy; i++)
+            {
+                spawnEnemy(dragon);
+            }
         }
-        for (int i = 0; i < numSpider; i++)
+        else if (Difficulty.difficulty == 2)
         {
-            spawnEnemy(spider);
+            for (int i = 0; i < numWerewolfHard; i++)
+            {
+                spawnEnemy(werewolf);
+            }
+            for (int i = 0; i < numSpiderHard; i++)
+            {
+                spawnEnemy(spider);
+            }
+            for (int i = 0; i < numSlimeHard; i++)
+            {
+                spawnEnemy(slime);
+            }
+            for (int i = 0; i < numKangarooHard; i++)
+            {
+                spawnEnemy(kangaroo);
+            }
+            for (int i = 0; i < numDragonHard; i++)
+            {
+                spawnEnemy(dragon);
+            }
         }
-        for (int i = 0; i < numSlime; i++)
+        else
         {
-            spawnEnemy(slime);
-        }
-        for (int i = 0; i < numKangaroo; i++)
-        {
-            spawnEnemy(kangaroo);
-        }
-        for (int i = 0; i < numDragon; i++)
-        {
-            spawnEnemy(dragon);
+            for (int i = 0; i < numWerewolf; i++)
+            {
+                spawnEnemy(werewolf);
+            }
+            for (int i = 0; i < numSpider; i++)
+            {
+                spawnEnemy(spider);
+            }
+            for (int i = 0; i < numSlime; i++)
+            {
+                spawnEnemy(slime);
+            }
+            for (int i = 0; i < numKangaroo; i++)
+            {
+                spawnEnemy(kangaroo);
+            }
+            for (int i = 0; i < numDragon; i++)
+            {
+                spawnEnemy(dragon);
+            }
         }
     }
 

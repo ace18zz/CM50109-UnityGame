@@ -1152,11 +1152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797e221312cac354a9b29db3ff84e727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewingMap: 0
   cam: {fileID: 519420031}
-  maxZoom: 5
-  minZoom: 20
-  sensitivity: 1
-  speed: 30
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -3283,16 +3280,16 @@ MonoBehaviour:
   kangaroo: {fileID: 7625415427405314342, guid: 2427c29aed38ac249b93c6c0b54cbe95,
     type: 3}
   dragon: {fileID: 6549358685359724608, guid: e7f513747eb76de41b34bd12969f66d1, type: 3}
-  minMonsterPosition: {x: -7, y: -4, z: 0}
-  maxMonsterPosition: {x: 7, y: 4, z: 0}
-  minEnemyPosition1: {x: -7, y: -22, z: 0}
-  maxEnemyPosition1: {x: 7, y: -10, z: 0}
-  minEnemyPosition2: {x: -7, y: -22, z: 0}
-  maxEnemyPosition2: {x: 7, y: -10, z: 0}
-  minEnemyPosition3: {x: -7, y: -22, z: 0}
-  maxEnemyPosition3: {x: 7, y: -10, z: 0}
+  minMonsterPosition: {x: -8, y: -5, z: 0}
+  maxMonsterPosition: {x: 8, y: 5, z: 0}
+  minEnemyPosition1: {x: 8, y: -5, z: 0}
+  maxEnemyPosition1: {x: 12, y: 5, z: 0}
+  minEnemyPosition2: {x: 19, y: -15, z: 0}
+  maxEnemyPosition2: {x: 25, y: -11, z: 0}
+  minEnemyPosition3: {x: -8, y: -23, z: 0}
+  maxEnemyPosition3: {x: 8, y: -9, z: 0}
   monsterCoords: []
-  numWerewolf: 1
+  numWerewolf: 6
   numSpider: 0
   numSlime: 0
   numKangaroo: 0

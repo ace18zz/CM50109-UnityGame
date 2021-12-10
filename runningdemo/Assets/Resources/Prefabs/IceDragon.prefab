@@ -90,7 +90,7 @@ PrefabInstance:
     - target: {fileID: 8061884735862526221, guid: b2f1c3b27164ba646b89d1b8669c3d43,
         type: 3}
       propertyPath: maxHealth
-      value: 160
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8061884735862526221, guid: b2f1c3b27164ba646b89d1b8669c3d43,
         type: 3}
@@ -100,7 +100,7 @@ PrefabInstance:
     - target: {fileID: 8061884735862526221, guid: b2f1c3b27164ba646b89d1b8669c3d43,
         type: 3}
       propertyPath: enemyHealth
-      value: 160
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 8061884735862526221, guid: b2f1c3b27164ba646b89d1b8669c3d43,
         type: 3}

@@ -32,7 +32,7 @@ public class EnemyHandler : MonoBehaviour
     public Color enemyColor;
 
     //Enemy's health bar
-    GameObject enemyHealthBar;
+    public GameObject enemyHealthBar;
     public GameObject healthBarPrefab;
 
     public void createHealthUI()

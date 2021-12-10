@@ -35,18 +35,50 @@ public class CameraHandler : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.W))
             {
                 transform.Translate(Vector3.up);
+                foreach (GameObject monster in TurnHandler.allies)
+                {
+                    monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position = monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position + Vector3.down;
+                }
+                foreach (GameObject enemy in TurnHandler.enemies)
+                {
+                    enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position = enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position + Vector3.down;
+                }
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
                 transform.Translate(Vector3.left);
+                foreach (GameObject monster in TurnHandler.allies)
+                {
+                    monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position = monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position + Vector3.right;
+                }
+                foreach (GameObject enemy in TurnHandler.enemies)
+                {
+                    enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position = enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position + Vector3.right;
+                }
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 transform.Translate(Vector3.down);
+                foreach (GameObject monster in TurnHandler.allies)
+                {
+                    monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position = monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position + Vector3.up;
+                }
+                foreach (GameObject enemy in TurnHandler.enemies)
+                {
+                    enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position = enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position + Vector3.up;
+                }
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
                 transform.Translate(Vector3.right);
+                foreach (GameObject monster in TurnHandler.allies)
+                {
+                    monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position = monster.GetComponent<MonsterHandler>().monsterHealthBar.transform.position + Vector3.left;
+                }
+                foreach (GameObject enemy in TurnHandler.enemies)
+                {
+                    enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position = enemy.GetComponent<EnemyHandler>().enemyHealthBar.transform.position + Vector3.left;
+                }
             }
         }
     }

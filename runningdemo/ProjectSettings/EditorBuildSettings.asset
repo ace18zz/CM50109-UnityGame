@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CraftingUI.unity
     guid: 1437f59307a82aa41bfdd9413626a153
   - enabled: 1
+    path: Assets/Scenes/DifficultySelect.unity
+    guid: e85e875f2f65188429f207a506986ce3
+  - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: e60f1b70baf329348a440c8aa7573fa4
   - enabled: 1
