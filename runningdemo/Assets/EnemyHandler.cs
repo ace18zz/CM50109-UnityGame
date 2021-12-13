@@ -490,6 +490,7 @@ public class EnemyHandler : MonoBehaviour
         dropLoot();
         TurnHandler.enemies.Remove(this.gameObject);
         Destroy(this.gameObject);
+        Destroy(enemyHealthBar);
     }
     
     // Start is called before the first frame update

@@ -342,6 +342,7 @@ public class MonsterHandler : MonoBehaviour
         MonsterList.monsterList.Remove(this.gameObject);
         TurnHandler.allies.Remove(this.gameObject);
         Destroy(this.gameObject);
+        Destroy(monsterHealthBar);
     }
 
     public void reset()
