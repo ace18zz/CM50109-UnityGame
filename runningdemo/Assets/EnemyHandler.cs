@@ -68,7 +68,6 @@ public class EnemyHandler : MonoBehaviour
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.left) && !isSpaceOccupiedByAlly(transform.position + Vector3.left) && !isSpaceOccupiedByWall(transform.position + Vector3.left))
         {
             transform.Translate(Vector3.left);
-            updateHealthUI();
         }
     }
 
@@ -78,7 +77,6 @@ public class EnemyHandler : MonoBehaviour
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.right) && !isSpaceOccupiedByAlly(transform.position + Vector3.right) && !isSpaceOccupiedByWall(transform.position + Vector3.right))
         {
             transform.Translate(Vector3.right);
-            updateHealthUI();
         }
     }
 
@@ -88,7 +86,6 @@ public class EnemyHandler : MonoBehaviour
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.up) && !isSpaceOccupiedByAlly(transform.position + Vector3.up) && !isSpaceOccupiedByWall(transform.position + Vector3.up))
         {
             transform.Translate(Vector3.up);
-            updateHealthUI();
         }
     }
 
@@ -98,7 +95,6 @@ public class EnemyHandler : MonoBehaviour
         if (!isSpaceOccupiedByEnemy(transform.position + Vector3.down) && !isSpaceOccupiedByAlly(transform.position + Vector3.down) && !isSpaceOccupiedByWall(transform.position + Vector3.down))
         {
             transform.Translate(Vector3.down);
-            updateHealthUI();
         }
     }
 
@@ -324,7 +320,6 @@ public class EnemyHandler : MonoBehaviour
             if (enemyType != "kangaroo")
             {
                 closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage;
-                closestMonster.GetComponent<MonsterHandler>().updateHealthUI();
             }
             //Spider
             if(enemyType == "spider")
@@ -346,7 +341,6 @@ public class EnemyHandler : MonoBehaviour
                 GameObject.Find("Combat Log").GetComponent<Text>().text = " An enemy hit your monster for " + (enemyDamage + 5) + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
                 StartCoroutine(knockBack(closestMonster,3));
                 GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster was knocked away." + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
-                closestMonster.GetComponent<MonsterHandler>().updateHealthUI();
             }
             else if(enemyType == "dragon")
             {

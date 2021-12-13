@@ -148,98 +148,94 @@ public class ItemHandler : MonoBehaviour
 
 	public void finishCrafting()
 	{
-		if (craftingSlots[craftingSlots.Count - 1].GetComponent<Image>().sprite != null)
+		GameObject clone = Instantiate(monsterPrefab, new Vector2(50000, 50000), Quaternion.identity);
+		foreach (GameObject slot in selectedList)
 		{
-			GameObject clone = Instantiate(monsterPrefab, new Vector2(50000, 50000), Quaternion.identity);
-			foreach (GameObject slot in selectedList)
+			if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Werewolf Teeth")
 			{
-				if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Werewolf Teeth")
-				{
-					clone.GetComponent<MonsterHandler>().monsterDamage += 5;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Werewolf Fur")
-				{
-					clone.GetComponent<MonsterHandler>().maxHealth += 10;
-					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Legs")
-				{
-					clone.GetComponent<MonsterHandler>().maxMovement ++;
-					clone.GetComponent<MonsterHandler>().currentMovement ++;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Mandibles")
-				{
-					clone.GetComponent<MonsterHandler>().maxActions ++;
-					clone.GetComponent<MonsterHandler>().currentActions++;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Web Sac")
-				{
-					clone.GetComponent<MonsterHandler>().spiderSpecial = true;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Slimey Slime")
-				{
-					clone.GetComponent<MonsterHandler>().monsterHealth += 10;
-					clone.GetComponent<MonsterHandler>().maxHealth += 10;
-					clone.GetComponent<MonsterHandler>().monsterDamage += 5;
-					clone.GetComponent<MonsterHandler>().maxMovement--;
-					clone.GetComponent<MonsterHandler>().currentMovement--;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Toxic Slime")
-				{
-					clone.GetComponent<MonsterHandler>().slimeSpecial = true;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Boxing Gloves")
-				{
-					clone.GetComponent<MonsterHandler>().kangarooSpecial = true;
-				}
-				else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Dragon Head")
-				{
-					clone.GetComponent<MonsterHandler>().dragonSpecial = true;
-				}
-				Inventory.playerInventory.Remove(slot.GetComponent<ItemSlot>().heldItem);
+				clone.GetComponent<MonsterHandler>().monsterDamage += 5;
 			}
-			Inventory.playerInventory.Clear();
-			MonsterList.addMonster(clone);
-			craftingSlots.Clear();
-			selectedList.Clear();
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Werewolf Fur")
+			{
+				clone.GetComponent<MonsterHandler>().maxHealth += 10;
+				clone.GetComponent<MonsterHandler>().monsterHealth += 10;
+			}
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Legs")
+			{
+				clone.GetComponent<MonsterHandler>().maxMovement ++;
+				clone.GetComponent<MonsterHandler>().currentMovement ++;
+			}
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Mandibles")
+			{
+				clone.GetComponent<MonsterHandler>().maxActions ++;
+				clone.GetComponent<MonsterHandler>().currentActions++;
+			}
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Spider Web Sac")
+			{
+				clone.GetComponent<MonsterHandler>().spiderSpecial = true;
+			}
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Slimey Slime")
+			{
+				clone.GetComponent<MonsterHandler>().monsterHealth += 10;
+				clone.GetComponent<MonsterHandler>().maxHealth += 10;
+				clone.GetComponent<MonsterHandler>().monsterDamage += 5;
+				clone.GetComponent<MonsterHandler>().maxMovement--;
+				clone.GetComponent<MonsterHandler>().currentMovement--;
+			}
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Toxic Slime")
+			{
+				clone.GetComponent<MonsterHandler>().slimeSpecial = true;
+			}
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Boxing Gloves")
+			{
+				clone.GetComponent<MonsterHandler>().kangarooSpecial = true;
+			}
+			else if (slot.GetComponent<ItemSlot>().heldItem.ItemName == "Dragon Head")
+			{
+				clone.GetComponent<MonsterHandler>().dragonSpecial = true;
+			}
+			Inventory.playerInventory.Remove(slot.GetComponent<ItemSlot>().heldItem);
+		}
+		Inventory.playerInventory.Clear();
+		MonsterList.addMonster(clone);
+		craftingSlots.Clear();
+		selectedList.Clear();
 
-			if (PlayerLevel.playerLevel == 0)
-            {
-				SceneManager.LoadScene("Scenes/Levels/Level0", LoadSceneMode.Single);
-            }
-			else if (PlayerLevel.playerLevel == 3)
-            {
-				SceneManager.LoadScene("Scenes/Levels/Level3", LoadSceneMode.Single);
-			}
-			else if (PlayerLevel.playerLevel == 6)
-			{
-				SceneManager.LoadScene("Scenes/Levels/Level6", LoadSceneMode.Single);
-			}
-			else if (PlayerLevel.playerLevel == 9)
-			{
-				SceneManager.LoadScene("Scenes/Levels/Level9", LoadSceneMode.Single);
-			}
-			else if (PlayerLevel.playerLevel == 14)
-			{
-				SceneManager.LoadScene("Scenes/Levels/Level14", LoadSceneMode.Single);
-			}
-			else if (PlayerLevel.playerLevel == 16)
-			{
-				SceneManager.LoadScene("Scenes/Levels/Level16", LoadSceneMode.Single);
-			}
-			else if (PlayerLevel.playerLevel == 20)
-			{
-				SceneManager.LoadScene("Scenes/Levels/Level20", LoadSceneMode.Single);
-			}
-			else if (PlayerLevel.playerLevel == 23)
-			{
-				SceneManager.LoadScene("Scenes/Levels/Level23", LoadSceneMode.Single);
-			}
-			else if (PlayerLevel.playerLevel == 25)
-			{
-				SceneManager.LoadScene("Scenes/Levels/Level25", LoadSceneMode.Single);
-			}
-
+		if (PlayerLevel.playerLevel == 0)
+        {
+			SceneManager.LoadScene("Scenes/Levels/Level0", LoadSceneMode.Single);
+        }
+		else if (PlayerLevel.playerLevel == 3)
+        {
+			SceneManager.LoadScene("Scenes/Levels/Level3", LoadSceneMode.Single);
+		}
+		else if (PlayerLevel.playerLevel == 6)
+		{
+			SceneManager.LoadScene("Scenes/Levels/Level6", LoadSceneMode.Single);
+		}
+		else if (PlayerLevel.playerLevel == 9)
+		{
+			SceneManager.LoadScene("Scenes/Levels/Level9", LoadSceneMode.Single);
+		}
+		else if (PlayerLevel.playerLevel == 14)
+		{
+			SceneManager.LoadScene("Scenes/Levels/Level14", LoadSceneMode.Single);
+		}
+		else if (PlayerLevel.playerLevel == 16)
+		{
+			SceneManager.LoadScene("Scenes/Levels/Level16", LoadSceneMode.Single);
+		}
+		else if (PlayerLevel.playerLevel == 20)
+		{
+			SceneManager.LoadScene("Scenes/Levels/Level20", LoadSceneMode.Single);
+		}
+		else if (PlayerLevel.playerLevel == 23)
+		{
+			SceneManager.LoadScene("Scenes/Levels/Level23", LoadSceneMode.Single);
+		}
+		else if (PlayerLevel.playerLevel == 25)
+		{
+			SceneManager.LoadScene("Scenes/Levels/Level25", LoadSceneMode.Single);
 		}
 	}
 	
@@ -260,7 +256,7 @@ public class ItemHandler : MonoBehaviour
 		GameObject craftingSlot4 = Instantiate(ItemSlot, new Vector2(925 - 1280, 350 - 720), Quaternion.identity);
 		craftingSlot4.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
 		
-		if (PlayerLevel.playerLevel >= 5)
+		if (PlayerLevel.playerLevel >= 8)
         {
 			craftingSlots.Add(craftingSlot3);
         }
@@ -269,7 +265,7 @@ public class ItemHandler : MonoBehaviour
 			craftingSlot3.GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f, 1f);
         }
 		
-		if (PlayerLevel.playerLevel >= 10)
+		if (PlayerLevel.playerLevel >= 16)
 		{
 			craftingSlots.Add(craftingSlot4);
 		}

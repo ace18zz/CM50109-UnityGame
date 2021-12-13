@@ -230,6 +230,8 @@ public class LevelHandler : MonoBehaviour
                 spawnEnemy(dragon);
             }
         }
+
+        GameObject.Find("Turn Tracker").GetComponent<SpriteRenderer>().sortingLayerName = "Layer 3";
     }
 
     // Update is called once per frame

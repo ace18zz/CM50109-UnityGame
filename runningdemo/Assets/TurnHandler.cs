@@ -15,6 +15,9 @@ public class TurnHandler : MonoBehaviour
     public static List<GameObject> enemies; 
     public static List<GameObject> allies;
 
+    //Find camera
+    GameObject cam;
+
     public void playerTurn()
     {
         foreach (GameObject ally in allies)
@@ -25,7 +28,6 @@ public class TurnHandler : MonoBehaviour
             if (ally.GetComponent<MonsterHandler>().isPoisoned)
             {
                 ally.GetComponent<MonsterHandler>().monsterHealth = ally.GetComponent<MonsterHandler>().monsterHealth - 5;
-                ally.GetComponent<MonsterHandler>().updateHealthUI();
                 GameObject.Find("Combat Log").GetComponent<Text>().text = "Your monster took 5 damage from poison! It now has " + ally.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
             }
         }
@@ -38,11 +40,23 @@ public class TurnHandler : MonoBehaviour
         enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
         allies = new System.Collections.Generic.List<GameObject>();
         allies.AddRange(GameObject.FindGameObjectsWithTag("Monster"));
+
+        cam = GameObject.Find("Main Camera");
+        cam.transform.position = allies[0].transform.position + new Vector3(0f,0f,-10f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        foreach (GameObject ally in allies)
+        {
+            ally.GetComponent<MonsterHandler>().updateHealthUI();
+        }
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EnemyHandler>().updateHealthUI();
+        }
+
         //If player presses enter on their, move onto enemy turn and add to turn counter
         if (Input.GetKeyDown(KeyCode.Return) && isPlayerTurn && !GameMenuHandler.isInMenu)
         {

@@ -162,7 +162,6 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.left);
             currentMovement--;
-            updateHealthUI();
         }
     }
 
@@ -173,7 +172,6 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.right);
             currentMovement--;
-            updateHealthUI();
         } 
     }
 
@@ -184,7 +182,6 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.up);
             currentMovement--;
-            updateHealthUI();
         }
     }
 
@@ -195,7 +192,6 @@ public class MonsterHandler : MonoBehaviour
         {
             transform.Translate(Vector3.down);
             currentMovement--;
-            updateHealthUI();
         }
     }
 
@@ -230,7 +226,6 @@ public class MonsterHandler : MonoBehaviour
                     {
                         GameObject.Find("Combat Log").GetComponent<Text>().text = "You weakened an enemy!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
                     }
-                    enemy.GetComponent<EnemyHandler>().updateHealthUI();
                 }
             }
             
