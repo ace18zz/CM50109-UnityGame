@@ -10,7 +10,6 @@ public class CameraHandler : MonoBehaviour
     {
         if (!viewingMap)
         {
-            Debug.Log("Boop");
             cam.orthographicSize = 20;
             viewingMap = true;
         }

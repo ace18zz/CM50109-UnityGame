@@ -30,6 +30,29 @@ public class TutorialHandler : MonoBehaviour
         
     }
 
+    int currentPage = 1;
+
+    public void flipPage()
+    {
+        GameObject page1 = GameObject.Find("Page1");
+        GameObject page2 = GameObject.Find("Page2");
+        GameObject panel = GameObject.Find("Panel");
+        if (currentPage == 1)
+        {
+            panel.transform.SetSiblingIndex(1);
+            page1.transform.SetSiblingIndex(2);
+            page2.transform.SetSiblingIndex(3);
+            currentPage = 2;
+        }
+        else if (currentPage == 2)
+        {
+            panel.transform.SetSiblingIndex(1);
+            page1.transform.SetSiblingIndex(3);
+            page2.transform.SetSiblingIndex(2);
+            currentPage = 1;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
