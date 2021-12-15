@@ -6,25 +6,41 @@ public class LevelHandler : MonoBehaviour
 {
     //Gets the monster prefab
     public GameObject monster;
-    //Gets fastmonster prefab
-    public GameObject fastmonster;
-    //Gets the enemy prefab
-    public GameObject enemy;
+    //Gets spider prefab
+    public GameObject spider;
+    //Gets the werewolf prefab
+    public GameObject werewolf;
+    //Gets the slime prefab
+    public GameObject slime;
+    //Gets the kangaroo prefab
+    public GameObject kangaroo;
+    //Gets the dragon prefab
+    public GameObject dragon;
 
     //Sets the areas in which Monsters can spawn
-    Vector3 minMonsterPosition = new Vector3(-9, -5, 0);
-    Vector3 maxMonsterPosition = new Vector3(-1, 5, 0);
+    public Vector3 minMonsterPosition;
+    public Vector3 maxMonsterPosition;
 
     //Sets the areas in which Monsters can spawn
-    Vector3 minEnemyPosition = new Vector3(1, -5, 0);
-    Vector3 maxEnemyPosition = new Vector3(9, 5, 0);
-    
+    public Vector3 minEnemyPosition1;
+    public Vector3 maxEnemyPosition1;
+
+    public Vector3 minEnemyPosition2;
+    public Vector3 maxEnemyPosition2;
+
+    public Vector3 minEnemyPosition3;
+    public Vector3 maxEnemyPosition3;
+
     //Sets the number of Monsters to spawn
-    public int numMonstersToSpawn = MonsterList.monsterList.Count;
     public List<Vector3> monsterCoords;
 
     //Sets the number of Enemies to spawn
-    public int numEnemiesToSpawn = 3;
+    public int numWerewolf;
+    public int numSpider;
+    public int numSlime;
+    public int numKangaroo;
+    public int numDragon;
+
     public List<Vector3> enemyCoords;
 
     //Keeps track of walls
@@ -41,6 +57,7 @@ public class LevelHandler : MonoBehaviour
         {
             monsterInstance.transform.position = monsterVector;
             monsterCoords.Add(monsterVector);
+            monsterInstance.GetComponent<MonsterHandler>().createHealthUI();
         }
         else
         {
@@ -49,26 +66,60 @@ public class LevelHandler : MonoBehaviour
     }
 
     //Spawns in an enemy at random coords within enemy area 
-    public void spawnEnemy()
+    public void spawnEnemy(GameObject enemyType)
     {
-        int enemyX = (int)Random.Range(minEnemyPosition.x, maxEnemyPosition.x);
-        int enemyY = (int)Random.Range(minEnemyPosition.y, maxEnemyPosition.y);
-        Vector3 enemyVector = new Vector3(enemyX, enemyY, 0);
-        if (!enemyCoords.Contains(enemyVector) && !monsterCoords.Contains(enemyVector) && !wallCoords.Contains(enemyVector))
+        int enemyX;
+        int enemyY;
+
+        int spawnSeed = (int)Random.Range(1, 4);
+
+        if (spawnSeed == 1)
         {
-            GameObject enemyInstance = Instantiate(enemy, enemyVector, Quaternion.identity);
-            //livingEnemies.Add(enemyInstance);
-            enemyCoords.Add(enemyVector);
+            enemyX = (int)Random.Range(minEnemyPosition1.x, maxEnemyPosition1.x);
+            enemyY = (int)Random.Range(minEnemyPosition1.y, maxEnemyPosition1.y);
+        }
+        else if (spawnSeed == 2)
+        {
+            enemyX = (int)Random.Range(minEnemyPosition2.x, maxEnemyPosition2.x);
+            enemyY = (int)Random.Range(minEnemyPosition2.y, maxEnemyPosition2.y);
         }
         else
         {
-            spawnEnemy();
+            enemyX = (int)Random.Range(minEnemyPosition3.x, maxEnemyPosition3.x);
+            enemyY = (int)Random.Range(minEnemyPosition3.y, maxEnemyPosition3.y);
+        }
+
+
+        Vector3 enemyVector = new Vector3(enemyX, enemyY, 0);
+        if (!enemyCoords.Contains(enemyVector) && !monsterCoords.Contains(enemyVector) && !wallCoords.Contains(enemyVector))
+        {
+            GameObject enemyInstance = Instantiate(enemyType, enemyVector, Quaternion.identity);
+            //livingEnemies.Add(enemyInstance);
+            enemyCoords.Add(enemyVector);
+            enemyInstance.GetComponent<EnemyHandler>().createHealthUI();
+        }
+        else
+        {
+            spawnEnemy(enemyType);
         }
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
+        //checks level then changes numEnemy values
+        int numWerewolfEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numWerewolf * 0.5f);
+        int numSpiderEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSpider * 0.5f);
+        int numSlimeEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSlime * 0.5f);
+        int numKangarooEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numKangaroo * 0.5f);
+        int numDragonEasy = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numDragon * 0.5f);
+
+        int numWerewolfHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numWerewolf * 2f);
+        int numSpiderHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSpider * 2f);
+        int numSlimeHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numSlime * 2f);
+        int numKangarooHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numKangaroo * 2f);
+        int numDragonHard = (int)Mathf.Ceil(GameObject.Find("LevelHandler").GetComponent<LevelHandler>().numDragon * 2f);
+
         //Gets wall locations
         walls = new System.Collections.Generic.List<GameObject>();
         walls.AddRange(GameObject.FindGameObjectsWithTag("UnpassableTerrain"));
@@ -108,12 +159,79 @@ public class LevelHandler : MonoBehaviour
                 spawnMonster(currentMonster);
             }
 		}
-
+        
         //Spawns enemies in unnocupied spaces in given area
-        for (int i = 0; i < numEnemiesToSpawn; i++)
+        if (Difficulty.difficulty == 0)
         {
-            spawnEnemy();
+            for (int i = 0; i < numWerewolfEasy; i++)
+            {
+                spawnEnemy(werewolf);
+            }
+            for (int i = 0; i < numSpiderEasy; i++)
+            {
+                spawnEnemy(spider);
+            }
+            for (int i = 0; i < numSlimeEasy; i++)
+            {
+                spawnEnemy(slime);
+            }
+            for (int i = 0; i < numKangarooEasy; i++)
+            {
+                spawnEnemy(kangaroo);
+            }
+            for (int i = 0; i < numDragonEasy; i++)
+            {
+                spawnEnemy(dragon);
+            }
         }
+        else if (Difficulty.difficulty == 2)
+        {
+            for (int i = 0; i < numWerewolfHard; i++)
+            {
+                spawnEnemy(werewolf);
+            }
+            for (int i = 0; i < numSpiderHard; i++)
+            {
+                spawnEnemy(spider);
+            }
+            for (int i = 0; i < numSlimeHard; i++)
+            {
+                spawnEnemy(slime);
+            }
+            for (int i = 0; i < numKangarooHard; i++)
+            {
+                spawnEnemy(kangaroo);
+            }
+            for (int i = 0; i < numDragonHard; i++)
+            {
+                spawnEnemy(dragon);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < numWerewolf; i++)
+            {
+                spawnEnemy(werewolf);
+            }
+            for (int i = 0; i < numSpider; i++)
+            {
+                spawnEnemy(spider);
+            }
+            for (int i = 0; i < numSlime; i++)
+            {
+                spawnEnemy(slime);
+            }
+            for (int i = 0; i < numKangaroo; i++)
+            {
+                spawnEnemy(kangaroo);
+            }
+            for (int i = 0; i < numDragon; i++)
+            {
+                spawnEnemy(dragon);
+            }
+        }
+
+        GameObject.Find("Turn Tracker").GetComponent<SpriteRenderer>().sortingLayerName = "Layer 3";
     }
 
     // Update is called once per frame

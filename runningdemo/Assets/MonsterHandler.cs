@@ -14,6 +14,7 @@ public class MonsterHandler : MonoBehaviour
     public int currentActions = 1;
 
     //Monster's health and damage
+    public int maxHealth = 40;
     public int monsterHealth = 40;
     public int monsterDamage = 10;
 
@@ -28,6 +29,57 @@ public class MonsterHandler : MonoBehaviour
 
     //Keeps track of whether this unit has been selected for movement
     public bool isSelected = false;
+
+    //Keeps track of whether unit is slowed
+    public int slowStacks = 0;
+
+    //Does this monster have spider special ability?
+    public bool spiderSpecial = false;
+
+    //Does this monster have slime special ability?
+    public bool slimeSpecial = false;
+
+    //Does this monster have kangaroo special ability?
+    public bool kangarooSpecial = false;
+
+    //Does this monster have dragon special ability?
+    public bool dragonSpecial = false;
+
+    //Keeps track of whether unit is poisoned
+    public bool isPoisoned = false;
+
+    //Monster's health bar
+    public GameObject monsterHealthBar;
+
+    public GameObject healthBarPrefab;
+
+    public void createHealthUI()
+    {
+        GameObject healthUI = Instantiate(healthBarPrefab, transform.position + new Vector3(0f, 0.6f, 0f), Quaternion.identity);
+        healthUI.transform.SetParent(GameObject.Find("Canvas").transform);
+        healthUI.transform.localScale = new Vector3(0.8f, 0.1f, 0);
+        monsterHealthBar = healthUI;
+        updateHealthUI();
+    }
+
+    public void updateHealthUI()
+    {
+        monsterHealthBar.GetComponent<Image>().fillAmount = (float)monsterHealth/(float)maxHealth;
+        monsterHealthBar.transform.position = transform.position + new Vector3(0f, 0.6f, 0f);
+
+        if (monsterHealthBar.GetComponent<Image>().fillAmount <= 0.2f)
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.red;
+        }
+        else if (monsterHealthBar.GetComponent<Image>().fillAmount <= 0.5f)
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.yellow;
+        }
+        else
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.green;
+        }
+    }
 
     //This function checks whether a destination space has an ally or enemy in it
     public bool isSpaceOccupiedByAlly(Vector3 destination)
@@ -152,10 +204,68 @@ public class MonsterHandler : MonoBehaviour
                 if (enemy.transform.position == target)
                 {
                     enemy.GetComponent<EnemyHandler>().enemyHealth = enemy.GetComponent<EnemyHandler>().enemyHealth - monsterDamage;
+                    if (spiderSpecial)
+                    {
+                        enemy.GetComponent<EnemyHandler>().slowStacks += 2;
+                    }
+                    if (slimeSpecial)
+                    {
+                        enemy.GetComponent<EnemyHandler>().isPoisoned = true;
+                    }
+                    if (kangarooSpecial)
+                    {
+                        StartCoroutine(knockBack(enemy, 3));
+                    }
+                    if (dragonSpecial)
+                    {
+                        enemy.GetComponent<EnemyHandler>().enemyDamage -= 4;
+                    }
                     GameObject.Find("Combat Log").GetComponent<Text>().text = "You hit an enemy for " + monsterDamage + " damage! It now has " + enemy.GetComponent<EnemyHandler>().enemyHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                    currentActions--;
+                    if (dragonSpecial)
+                    {
+                        GameObject.Find("Combat Log").GetComponent<Text>().text = "You weakened an enemy!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
+                    }
                 }
             }
-            currentActions--;
+            
+        }
+    }
+
+    public IEnumerator knockBack(GameObject closestMonster, int power)
+    {
+        if (closestMonster.transform.position == transform.position + Vector3.left)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveLeft();
+                yield return new WaitForSeconds(0.33f);
+            }
+
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.right)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveRight();
+                yield return new WaitForSeconds(0.33f);
+            }
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.up)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveUp();
+                yield return new WaitForSeconds(0.33f);
+            }
+        }
+        else if (closestMonster.transform.position == transform.position + Vector3.down)
+        {
+            for (int i = 0; i < power; i++)
+            {
+                closestMonster.GetComponent<EnemyHandler>().moveDown();
+                yield return new WaitForSeconds(0.33f);
+            }
         }
     }
 
@@ -208,7 +318,6 @@ public class MonsterHandler : MonoBehaviour
 
         foreach (Vector3 tile in moveableTiles)
         {
-            Debug.Log(tile);
             Instantiate(possibleMovement, tile, Quaternion.identity);
         }
 
@@ -233,6 +342,7 @@ public class MonsterHandler : MonoBehaviour
         MonsterList.monsterList.Remove(this.gameObject);
         TurnHandler.allies.Remove(this.gameObject);
         Destroy(this.gameObject);
+        Destroy(monsterHealthBar);
     }
 
     public void reset()
@@ -260,7 +370,7 @@ public class MonsterHandler : MonoBehaviour
     void Update()
     {
         //Detects left click
-        if (Input.GetMouseButtonDown(0) && !GameMenuHandler.isInMenu)
+        if (Input.GetMouseButtonDown(0) && InputEnabled.isInputEnabled)
         {
             //This gets the position of the cursor when the click was made
             Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -334,7 +444,7 @@ public class MonsterHandler : MonoBehaviour
             }
         }
         //When a unit runs out of movement it turns translucent
-        if (currentMovement == 0 && currentActions == 0)
+        if ((currentMovement == 0 && currentActions == 0)|| !TurnHandler.isPlayerTurn)
         {
             sprite.color = new Color(1f, 1f, 1f, 0.2f);
         }

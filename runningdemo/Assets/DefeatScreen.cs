@@ -8,7 +8,8 @@ public class DefeatScreen : MonoBehaviour
 {
     public void retry()
     {
-        PlayerLevel.playerLevel = 1;
+        PlayerLevel.playerLevel = 0;
+        Inventory.startingInventory();
         SceneManager.LoadScene("Scenes/CraftingUI", LoadSceneMode.Single);
     }
 
@@ -20,8 +21,6 @@ public class DefeatScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject.Find("Retry button").GetComponentInChildren<Text>().text = "Retry";
-        GameObject.Find("Quit button").GetComponentInChildren<Text>().text = "Quit";
     }
 
     // Update is called once per frame
