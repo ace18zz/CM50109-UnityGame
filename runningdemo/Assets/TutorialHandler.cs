@@ -13,9 +13,10 @@ public class TutorialHandler : MonoBehaviour
     {
         if (isInTutorial)
         {
-            SceneManager.UnloadSceneAsync("Scenes/Tutorial");
             InputEnabled.isInputEnabled = true;
             isInTutorial = false;
+            SceneManager.UnloadSceneAsync("Scenes/Tutorial");
+            
         }
         
     }
@@ -23,17 +24,19 @@ public class TutorialHandler : MonoBehaviour
     {
         if (!isInTutorial)
         {
-            SceneManager.LoadScene("Scenes/Tutorial", LoadSceneMode.Additive);
             InputEnabled.isInputEnabled = false;
             isInTutorial = true;
+            SceneManager.LoadScene("Scenes/Tutorial", LoadSceneMode.Additive);
+            
         }
         
     }
 
-    int currentPage = 1;
+    int currentPage;
 
     public void flipPage()
     {
+        Debug.Log("hmm");
         GameObject page1 = GameObject.Find("Page1");
         GameObject page2 = GameObject.Find("Page2");
         GameObject panel = GameObject.Find("Panel");
@@ -56,7 +59,7 @@ public class TutorialHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentPage = 1;
     }
 
     // Update is called once per frame

@@ -43,6 +43,7 @@ public class TurnHandler : MonoBehaviour
 
         cam = GameObject.Find("Main Camera");
         cam.transform.position = allies[0].transform.position + new Vector3(0f,0f,-10f);
+        playerTurn();
     }
 
     // Update is called once per frame
