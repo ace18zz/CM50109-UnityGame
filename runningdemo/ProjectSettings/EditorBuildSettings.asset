@@ -9,24 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: d7296862c1ead45499e21f08d787c844
   - enabled: 1
-    path: Assets/Scenes/CraftingUI.unity
-    guid: 1437f59307a82aa41bfdd9413626a153
-  - enabled: 1
-    path: Assets/Scenes/DifficultySelect.unity
-    guid: e85e875f2f65188429f207a506986ce3
-  - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: e60f1b70baf329348a440c8aa7573fa4
-  - enabled: 1
-    path: Assets/Scenes/Defeat.unity
-    guid: 9e239bf42df159147ae588da867e9391
-  - enabled: 1
-    path: Assets/Scenes/GameMenu.unity
-    guid: 65bb0169fcb957e4ca96d8041770a4f8
-  - enabled: 1
-    path: Assets/Scenes/Victory.unity
-    guid: dcb7ab1f82f83a946859c7440647dc60
-  - enabled: 1
     path: Assets/Scenes/Levels/Level0.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -39,62 +21,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level3.unity
     guid: b406ba13f2352c84b80c4b2b2cdc853e
   - enabled: 1
-    path: Assets/Scenes/Levels/Level6.unity
-    guid: 78baa482bdb21d44bab6f6db1409e371
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level9.unity
-    guid: 052dcd23c8eac3e42a1c04cf00914ead
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level12.unity
-    guid: 60fb44499cc57a84b820f6e9e98f77ec
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level17.unity
-    guid: 2445dc558de564f4786e3e7c9fb84e04
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/Levels/Level19.unity
-    guid: 700e5b5aabadae140a5741fab48b3b41
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
     path: Assets/Scenes/Levels/Level4.unity
     guid: 819de872d78f74642b5c76db77224dfd
   - enabled: 1
     path: Assets/Scenes/Levels/Level5.unity
     guid: 3b42fa0c219fa894c9bd636b479f676a
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level6.unity
+    guid: 78baa482bdb21d44bab6f6db1409e371
   - enabled: 1
     path: Assets/Scenes/Levels/Level7.unity
     guid: 2ceeef1139b012d45982f968bfb43eea
@@ -102,11 +36,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level8.unity
     guid: 069ea90da4efbff4d9f5aa884a158db4
   - enabled: 1
+    path: Assets/Scenes/Levels/Level9.unity
+    guid: 052dcd23c8eac3e42a1c04cf00914ead
+  - enabled: 1
     path: Assets/Scenes/Levels/Level10.unity
     guid: 45a7e506714f59045a55adfe3550c1ac
   - enabled: 1
     path: Assets/Scenes/Levels/Level11.unity
     guid: 94fd9013e6ec3cc48953ed60d89d7b0b
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level12.unity
+    guid: 60fb44499cc57a84b820f6e9e98f77ec
   - enabled: 1
     path: Assets/Scenes/Levels/Level13.unity
     guid: bf0b946f50e0a1c4eb143b81d54a3138
@@ -120,8 +60,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level16.unity
     guid: 679e4c4c3fdb5264195ec28edf72c4f4
   - enabled: 1
+    path: Assets/Scenes/Levels/Level17.unity
+    guid: 2445dc558de564f4786e3e7c9fb84e04
+  - enabled: 1
     path: Assets/Scenes/Levels/Level18.unity
     guid: d53efd012bb88744ca1092051b1c6569
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level19.unity
+    guid: 700e5b5aabadae140a5741fab48b3b41
   - enabled: 1
     path: Assets/Scenes/Levels/Level20.unity
     guid: e072310a9162df94f90c0a8f95b818ee
@@ -132,14 +78,29 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/Level22.unity
     guid: 421fed84d8c803c4ca4bbb31638d5e95
   - enabled: 1
-    path: Assets/Scenes/Levels/Level24.unity
-    guid: 106c9d414bd61aa4c97a577ea009c3aa
-  - enabled: 1
     path: Assets/Scenes/Levels/Level23.unity
     guid: 827f61cee6a63024c9459e0c524cff56
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/CraftingUI.unity
+    guid: 1437f59307a82aa41bfdd9413626a153
+  - enabled: 1
+    path: Assets/Scenes/Defeat.unity
+    guid: 9e239bf42df159147ae588da867e9391
+  - enabled: 1
+    path: Assets/Scenes/DifficultySelect.unity
+    guid: e85e875f2f65188429f207a506986ce3
+  - enabled: 1
+    path: Assets/Scenes/GameMenu.unity
+    guid: 65bb0169fcb957e4ca96d8041770a4f8
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: e60f1b70baf329348a440c8aa7573fa4
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: dcb7ab1f82f83a946859c7440647dc60
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level24.unity
+    guid: 106c9d414bd61aa4c97a577ea009c3aa
   - enabled: 1
     path: Assets/Scenes/Levels/Level25.unity
     guid: 7a944e331e9125544accab11c742446f

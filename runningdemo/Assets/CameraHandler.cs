@@ -10,13 +10,12 @@ public class CameraHandler : MonoBehaviour
     {
         if (!viewingMap)
         {
-            Debug.Log("Boop");
             cam.orthographicSize = 20;
             viewingMap = true;
         }
         else
         {
-            cam.orthographicSize = 5;
+            cam.orthographicSize = 8;
             viewingMap = false;
         }
     }
@@ -24,7 +23,7 @@ public class CameraHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
