@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerLevel : ScriptableObject
 {
-    public static int playerLevel = 1;
+    public static int playerLevel = 0;
 }

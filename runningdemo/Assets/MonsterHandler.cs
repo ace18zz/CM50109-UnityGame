@@ -14,6 +14,7 @@ public class MonsterHandler : MonoBehaviour
     public int currentActions = 1;
 
     //Monster's health and damage
+    public int maxHealth = 40;
     public int monsterHealth = 40;
     public int monsterDamage = 10;
 
@@ -46,6 +47,39 @@ public class MonsterHandler : MonoBehaviour
 
     //Keeps track of whether unit is poisoned
     public bool isPoisoned = false;
+
+    //Monster's health bar
+    public GameObject monsterHealthBar;
+
+    public GameObject healthBarPrefab;
+
+    public void createHealthUI()
+    {
+        GameObject healthUI = Instantiate(healthBarPrefab, transform.position + new Vector3(0f, 0.6f, 0f), Quaternion.identity);
+        healthUI.transform.SetParent(GameObject.Find("Canvas").transform);
+        healthUI.transform.localScale = new Vector3(0.8f, 0.1f, 0);
+        monsterHealthBar = healthUI;
+        updateHealthUI();
+    }
+
+    public void updateHealthUI()
+    {
+        monsterHealthBar.GetComponent<Image>().fillAmount = (float)monsterHealth/(float)maxHealth;
+        monsterHealthBar.transform.position = transform.position + new Vector3(0f, 0.6f, 0f);
+
+        if (monsterHealthBar.GetComponent<Image>().fillAmount <= 0.2f)
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.red;
+        }
+        else if (monsterHealthBar.GetComponent<Image>().fillAmount <= 0.5f)
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.yellow;
+        }
+        else
+        {
+            monsterHealthBar.GetComponent<Image>().color = Color.green;
+        }
+    }
 
     //This function checks whether a destination space has an ally or enemy in it
     public bool isSpaceOccupiedByAlly(Vector3 destination)
@@ -308,6 +342,7 @@ public class MonsterHandler : MonoBehaviour
         MonsterList.monsterList.Remove(this.gameObject);
         TurnHandler.allies.Remove(this.gameObject);
         Destroy(this.gameObject);
+        Destroy(monsterHealthBar);
     }
 
     public void reset()
@@ -335,7 +370,7 @@ public class MonsterHandler : MonoBehaviour
     void Update()
     {
         //Detects left click
-        if (Input.GetMouseButtonDown(0) && !GameMenuHandler.isInMenu)
+        if (Input.GetMouseButtonDown(0) && InputEnabled.isInputEnabled)
         {
             //This gets the position of the cursor when the click was made
             Vector3 cursorPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

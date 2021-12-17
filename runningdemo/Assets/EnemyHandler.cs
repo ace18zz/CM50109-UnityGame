@@ -7,22 +7,13 @@ using Random = UnityEngine.Random;
 
 public class EnemyHandler : MonoBehaviour
 {
-<<<<<<< HEAD
-    //Enemy's health
-=======
     //Enemy type
     public string enemyType;
 
     //Enemy's health and damage
->>>>>>> origin/Fei
+    public int maxHealth = 20;
     public int enemyHealth = 20;
-
-    //Enemy's damage
-    public int enemyDamage()
-    {
-        int damage = (int)Random.Range(0, 5);
-        return damage;
-    }
+    public int enemyDamage = 5;
 
     //Enemy's movement
     public int maxMovement = 3;
@@ -39,6 +30,38 @@ public class EnemyHandler : MonoBehaviour
 
     //Enemy color
     public Color enemyColor;
+
+    //Enemy's health bar
+    public GameObject enemyHealthBar;
+    public GameObject healthBarPrefab;
+
+    public void createHealthUI()
+    {
+        GameObject healthUI = Instantiate(healthBarPrefab, transform.position + new Vector3(0f, 0.6f, 0f), Quaternion.identity);
+        healthUI.transform.SetParent(GameObject.Find("Canvas").transform);
+        healthUI.transform.localScale = new Vector3(0.8f, 0.1f, 0);
+        enemyHealthBar = healthUI;
+        updateHealthUI();
+    }
+
+    public void updateHealthUI()
+    {
+        enemyHealthBar.GetComponent<Image>().fillAmount = (float)enemyHealth / (float)maxHealth;
+        enemyHealthBar.transform.position = transform.position + new Vector3(0f, 0.6f, 0f);
+
+        if (enemyHealthBar.GetComponent<Image>().fillAmount <= 0.2f)
+        {
+            enemyHealthBar.GetComponent<Image>().color = Color.red;
+        }
+        else if (enemyHealthBar.GetComponent<Image>().fillAmount <= 0.5f)
+        {
+            enemyHealthBar.GetComponent<Image>().color = Color.yellow;
+        }
+        else
+        {
+            enemyHealthBar.GetComponent<Image>().color = Color.green;
+        }
+    }
 
     public void moveLeft()
     {
@@ -157,6 +180,7 @@ public class EnemyHandler : MonoBehaviour
         if (isPoisoned)
         {
             enemyHealth -= 5;
+            updateHealthUI();
         }
         for (int i = 0; i < currentMovement; i++)
         {
@@ -292,10 +316,6 @@ public class EnemyHandler : MonoBehaviour
 
         if (xDiff == 0 && Math.Abs(yDiff) == 1 || Math.Abs(xDiff) == 1 && yDiff == 0)
         {
-<<<<<<< HEAD
-            closestMonster.GetComponent<MonsterHandler>().monsterHealth = closestMonster.GetComponent<MonsterHandler>().monsterHealth - enemyDamage();
-            GameObject.Find("Combat Log").GetComponent<Text>().text =  "An enemy hit your monster for " + enemyDamage() + " damage! It now has " + closestMonster.GetComponent<MonsterHandler>().monsterHealth + " health remaining!" + "\n" + GameObject.Find("Combat Log").GetComponent<Text>().text;
-=======
             //Type-dependent effects considered
             if (enemyType != "kangaroo")
             {
@@ -375,7 +395,6 @@ public class EnemyHandler : MonoBehaviour
                 closestMonster.GetComponent<MonsterHandler>().currentMovement++;
                 yield return new WaitForSeconds(0.33f);
             }
->>>>>>> origin/Fei
         }
     }
     
@@ -471,6 +490,7 @@ public class EnemyHandler : MonoBehaviour
         dropLoot();
         TurnHandler.enemies.Remove(this.gameObject);
         Destroy(this.gameObject);
+        Destroy(enemyHealthBar);
     }
     
     // Start is called before the first frame update

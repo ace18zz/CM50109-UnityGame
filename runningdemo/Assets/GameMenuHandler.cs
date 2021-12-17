@@ -20,11 +20,13 @@ public class GameMenuHandler : MonoBehaviour
             if (!isInMenu)
             {
                 isInMenu = true;
+                InputEnabled.isInputEnabled = false;
                 SceneManager.LoadScene("Scenes/GameMenu", LoadSceneMode.Additive);
             }
             else
             {
                 isInMenu = false;
+                InputEnabled.isInputEnabled = true;
                 SceneManager.UnloadSceneAsync("Scenes/GameMenu");
             }
 

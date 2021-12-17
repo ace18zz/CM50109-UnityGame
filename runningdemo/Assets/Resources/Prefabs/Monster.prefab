@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c9af36bea883be942803b15549a722f9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,11 +100,22 @@ MonoBehaviour:
   currentMovement: 4
   maxActions: 1
   currentActions: 1
+  maxHealth: 40
   monsterHealth: 40
   monsterDamage: 10
-  possibleMovement: {fileID: 6860233657136483016, guid: d3d7d33dca2903b45a0ed2b3c7abc036, type: 3}
+  possibleMovement: {fileID: 6860233657136483016, guid: d3d7d33dca2903b45a0ed2b3c7abc036,
+    type: 3}
   monsterColor: {r: 1, g: 1, b: 1, a: 1}
   isSelected: 0
+  slowStacks: 0
+  spiderSpecial: 0
+  slimeSpecial: 0
+  kangarooSpecial: 0
+  dragonSpecial: 0
+  isPoisoned: 0
+  monsterHealthBar: {fileID: 0}
+  healthBarPrefab: {fileID: 3886318745674466067, guid: 042e5c720a62f594fbd0c6e7dab7f435,
+    type: 3}
   movementLeniency: 2.5
 --- !u!114 &8971565511859027811
 MonoBehaviour:
