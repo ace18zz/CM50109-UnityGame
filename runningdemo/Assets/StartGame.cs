@@ -24,4 +24,13 @@ public class StartGame : MonoBehaviour
         SceneManager.LoadScene("Scenes/CraftingUI", LoadSceneMode.Single);
         Difficulty.difficulty = 2;
     }
+
+
+    void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "StartScreen")
+        {
+            Inventory.startingInventory();
+        }
+    }
 }
