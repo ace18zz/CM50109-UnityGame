@@ -18,6 +18,12 @@ public class DefeatScreen : MonoBehaviour
         Application.Quit();
     }
 
+    public void mute()
+    {
+        AudioSource music = GameObject.Find("Music").GetComponent<AudioSource>();
+        music.mute = !music.mute;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

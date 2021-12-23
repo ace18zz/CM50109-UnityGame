@@ -8,6 +8,7 @@ public class StartGame : MonoBehaviour
     public void selectDifficulty()
     {
         SceneManager.LoadScene("Scenes/DifficultySelect", LoadSceneMode.Single);
+        Inventory.startingInventory();
     }
     public void beginGameEasy()
     {
